@@ -1,0 +1,10 @@
+{
+    "databaseName": "test",
+    "databaseServer": "localhost",
+    "databasePort": 28015,
+    "databaseTables": [
+        "adminTable",
+        "contactTracingTable",
+        "userChecks"
+    ]
+}
