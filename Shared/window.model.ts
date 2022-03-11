@@ -1,4 +1,4 @@
-export class Window {
+export class WindowModel {
 
     id: string;
     room: string;

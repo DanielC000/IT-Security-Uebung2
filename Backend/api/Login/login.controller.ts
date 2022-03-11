@@ -3,13 +3,11 @@ import {inject, injectable} from "inversify";
 import {DatabaseService} from "../../core/services/database.service";
 import {LoggerService} from "../../core/services/logger.service";
 import {Request, Response} from 'express';
-import {Contact} from "../../models/entry.model";
-import {Admin} from "../../models/admin.model";
 import {User} from "../../../Shared/user.model";
 
-@controller('/admin')
+@controller('/user')
 @injectable()
-export class AdminController implements interfaces.Controller {
+export class LoginController implements interfaces.Controller {
     constructor(
         @inject(DatabaseService.name) private databaseService: DatabaseService,
         @inject(LoggerService.name) private loggerService: LoggerService,
@@ -21,8 +19,8 @@ export class AdminController implements interfaces.Controller {
         this.loggerService.info('Received login request');
         this.loggerService.info(request.body.username);
 
-        this.databaseService.getAllAdmins().then((result: Array<Admin>) => {
-            let admin = result.find(x => x.password == request.body.password && x.username == request.body.username)
+        this.databaseService.getAllUsers().then((result: Array<User>) => {
+            let admin = result.find(x => x.password == request.body.user.password && x.username == request.body.user.username)
             if (admin == undefined) {
                 this.loggerService.info('invalid login request');
                 response.status(401).send({
