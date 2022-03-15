@@ -21,13 +21,13 @@ export class DevicesService {
     return this.http.get<any>('http://localhost:8888/overview/temperatures');
   }
 
-  public setTargetTemperature(element: Temperature) {
-    this.logger.log('using PUT to fetch set target Temperature')
-    return this.http.put<any>('http://localhost:8888/overview/temperatures', element);
-  }
-
   public getWindowDevices() {
     this.logger.log('using GET to fetch Window Devices')
     return this.http.get<any>('http://localhost:8888/overview/windows');
+  }
+
+  public setTargetTemperature(element: Temperature) {
+    this.logger.log('using PUT to fetch set target Temperature')
+    return this.http.put<any>('http://localhost:8888/overview/temperatures', element);
   }
 }

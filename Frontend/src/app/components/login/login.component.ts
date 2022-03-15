@@ -60,6 +60,7 @@ export class LoginComponent implements OnInit {
         next: (value: User) => {
           console.log(value);
           this.tokenStorage.saveUser(value);
+          this.tokenStorage.saveToken(value.jwtToken);
           this.router.navigate([this.returnUrl]);
         },
         error: (error) => {
