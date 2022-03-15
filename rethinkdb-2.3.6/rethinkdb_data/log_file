@@ -1,46 +1,33 @@
-2022-03-15T14:11:11.173870100 0.011951s notice: In recursion: removing file 'C:\\Git\\ALGODAT\\IT-Security-Uebung2\\rethinkdb-2.3.6\\rethinkdb_data\\tmp'
-2022-03-15T14:11:11.173870101 0.012505s warn: Trying to delete non-existent file 'C:\\Git\\ALGODAT\\IT-Security-Uebung2\\rethinkdb-2.3.6\\rethinkdb_data\\tmp'
-2022-03-15T14:11:11.175870900 0.014469s notice: Initializing directory C:\\Git\\ALGODAT\\IT-Security-Uebung2\\rethinkdb-2.3.6\\rethinkdb_data
-2022-03-15T14:11:11.176871300 0.015249s info: Creating a default database for your convenience. (This is because you ran 'rethinkdb' without 'create', 'serve', or '--join', and the directory 'C:\\Git\\ALGODAT\\IT-Security-Uebung2\\rethinkdb-2.3.6\\rethinkdb_data' did not already exist or is empty.)
-2022-03-15T14:11:11.176871301 0.015415s notice: Running rethinkdb 2.3.6-windows (MSC 190024215)...
-2022-03-15T14:11:11.176871302 0.015466s notice: Running on 6.2.9200 (Windows 8, Server 2012)
-2022-03-15T14:11:11.176871303 0.015496s notice: Loading data from directory C:\\Git\\ALGODAT\\IT-Security-Uebung2\\rethinkdb-2.3.6\\rethinkdb_data
-2022-03-15T14:11:11.386871200 0.225529s info: Automatically using cache size of 2561 MB
-2022-03-15T14:11:11.388870700 0.227437s notice: Listening for intracluster connections on port 29015
-2022-03-15T14:11:11.390869300 0.228806s notice: Listening for client driver connections on port 28015
-2022-03-15T14:11:11.390869301 0.228924s notice: Listening for administrative HTTP connections on port 8080
-2022-03-15T14:11:11.390869302 0.228925s notice: Listening on cluster address: 127.0.0.1
-2022-03-15T14:11:11.390869303 0.228927s notice: Listening on driver address: 127.0.0.1
-2022-03-15T14:11:11.390869304 0.228928s notice: Listening on http address: 127.0.0.1
-2022-03-15T14:11:11.390869305 0.228929s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
-2022-03-15T14:11:11.390869306 0.228931s notice: Server ready, "DESKTOP_S6MPQ6R_r10" fc90faee-0a1d-4d62-b00f-281ae20a12d4
-2022-03-15T14:11:11.882334200 0.720973s notice: A newer version of the RethinkDB server is available: 2.4.0. You can read the changelog at <https://github.com/rethinkdb/rethinkdb/releases>.
-2022-03-15T14:16:14.969197800 0.011527s notice: Running rethinkdb 2.3.6-windows (MSC 190024215)...
-2022-03-15T14:16:14.969197801 0.011672s notice: Running on 6.2.9200 (Windows 8, Server 2012)
-2022-03-15T14:16:14.969197802 0.011712s notice: Loading data from directory C:\\Git\\ALGODAT\\IT-Security-Uebung2\\rethinkdb-2.3.6\\rethinkdb_data
-2022-03-15T14:16:14.980388100 0.022354s info: Automatically using cache size of 2325 MB
-2022-03-15T14:16:14.981389000 0.024055s notice: Listening for intracluster connections on port 29015
-2022-03-15T14:16:14.982392600 0.025063s notice: Listening for client driver connections on port 28015
-2022-03-15T14:16:14.983391000 0.025199s notice: Listening for administrative HTTP connections on port 8080
-2022-03-15T14:16:14.983391001 0.025202s notice: Listening on cluster address: 127.0.0.1
-2022-03-15T14:16:14.983391002 0.025203s notice: Listening on driver address: 127.0.0.1
-2022-03-15T14:16:14.983391003 0.025204s notice: Listening on http address: 127.0.0.1
-2022-03-15T14:16:14.983391004 0.025204s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
-2022-03-15T14:16:14.983391005 0.025206s notice: Server ready, "DESKTOP_S6MPQ6R_r10" fc90faee-0a1d-4d62-b00f-281ae20a12d4
-2022-03-15T14:16:15.425502100 0.467487s notice: A newer version of the RethinkDB server is available: 2.4.0. You can read the changelog at <https://github.com/rethinkdb/rethinkdb/releases>.
-2022-03-15T14:30:39.552961400 864.595101s info: Table 5745e0df-9dcd-4e3f-a052-7c3ea27f4a92: Starting a new Raft election for term 1.
-2022-03-15T14:30:39.552961401 864.595586s info: Table 5745e0df-9dcd-4e3f-a052-7c3ea27f4a92: Added replica on this server.
-2022-03-15T14:30:39.566742900 864.609149s info: Table ed8230ef-9c5d-47af-a1f1-828ed3ad0799: Starting a new Raft election for term 1.
-2022-03-15T14:30:39.566742901 864.609298s info: Table ed8230ef-9c5d-47af-a1f1-828ed3ad0799: Added replica on this server.
-2022-03-15T14:30:39.583016900 864.625513s info: Table 08d70d96-eaba-4be1-8ec1-a22a5e6ce85b: Starting a new Raft election for term 1.
-2022-03-15T14:30:39.583016901 864.625709s info: Table 08d70d96-eaba-4be1-8ec1-a22a5e6ce85b: Added replica on this server.
-2022-03-15T14:30:39.607024000 864.649549s info: Table 2aa5a9ce-0b2b-4850-b20f-28c4a61dbc9c: Starting a new Raft election for term 1.
-2022-03-15T14:30:39.607024001 864.649699s info: Table 2aa5a9ce-0b2b-4850-b20f-28c4a61dbc9c: Added replica on this server.
-2022-03-15T14:30:39.610024000 864.652184s info: Table 2d850535-3948-4532-99b8-afb08e03136b: Starting a new Raft election for term 1.
-2022-03-15T14:30:39.610024001 864.652344s info: Table 2d850535-3948-4532-99b8-afb08e03136b: Added replica on this server.
-2022-03-15T14:30:39.616537900 864.658470s info: Table 5745e0df-9dcd-4e3f-a052-7c3ea27f4a92: This server is Raft leader for term 1. Latest log index is 0.
-2022-03-15T14:30:39.616537901 864.658515s info: Table ed8230ef-9c5d-47af-a1f1-828ed3ad0799: This server is Raft leader for term 1. Latest log index is 0.
-2022-03-15T14:30:39.621774500 864.664189s info: Table 08d70d96-eaba-4be1-8ec1-a22a5e6ce85b: This server is Raft leader for term 1. Latest log index is 0.
-2022-03-15T14:30:39.621774501 864.664219s info: Table 2aa5a9ce-0b2b-4850-b20f-28c4a61dbc9c: This server is Raft leader for term 1. Latest log index is 0.
-2022-03-15T14:30:39.626774200 864.669346s info: Table 2d850535-3948-4532-99b8-afb08e03136b: This server is Raft leader for term 1. Latest log index is 0.
-2022-03-15T14:33:07.629076100 1012.671715s notice: Server got Close (End Task) Event; shutting down...
+2022-03-15T14:56:07.255619700 0.010542s notice: In recursion: removing file 'C:\\Git\\ALGODAT\\IT-Security-Uebung2\\rethinkdb-2.3.6\\rethinkdb_data\\tmp'
+2022-03-15T14:56:07.256620000 0.011041s warn: Trying to delete non-existent file 'C:\\Git\\ALGODAT\\IT-Security-Uebung2\\rethinkdb-2.3.6\\rethinkdb_data\\tmp'
+2022-03-15T14:56:07.257619700 0.012389s notice: Initializing directory C:\\Git\\ALGODAT\\IT-Security-Uebung2\\rethinkdb-2.3.6\\rethinkdb_data
+2022-03-15T14:56:07.258623100 0.012965s info: Creating a default database for your convenience. (This is because you ran 'rethinkdb' without 'create', 'serve', or '--join', and the directory 'C:\\Git\\ALGODAT\\IT-Security-Uebung2\\rethinkdb-2.3.6\\rethinkdb_data' did not already exist or is empty.)
+2022-03-15T14:56:07.258935700 0.013182s notice: Running rethinkdb 2.3.6-windows (MSC 190024215)...
+2022-03-15T14:56:07.258935701 0.013224s notice: Running on 6.2.9200 (Windows 8, Server 2012)
+2022-03-15T14:56:07.258935702 0.013258s notice: Loading data from directory C:\\Git\\ALGODAT\\IT-Security-Uebung2\\rethinkdb-2.3.6\\rethinkdb_data
+2022-03-15T14:56:07.449774100 0.204787s info: Automatically using cache size of 2335 MB
+2022-03-15T14:56:07.451771200 0.206639s notice: Listening for intracluster connections on port 29015
+2022-03-15T14:56:07.452771400 0.207604s notice: Listening for client driver connections on port 28015
+2022-03-15T14:56:07.452771401 0.207732s notice: Listening for administrative HTTP connections on port 8080
+2022-03-15T14:56:07.452771402 0.207734s notice: Listening on cluster address: 127.0.0.1
+2022-03-15T14:56:07.452771403 0.207735s notice: Listening on driver address: 127.0.0.1
+2022-03-15T14:56:07.452771404 0.207736s notice: Listening on http address: 127.0.0.1
+2022-03-15T14:56:07.452771405 0.207737s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2022-03-15T14:56:07.452771406 0.207738s notice: Server ready, "DESKTOP_S6MPQ6R_ke8" 7394b94e-5878-4a77-989a-8a26c22f858b
+2022-03-15T14:56:07.892136900 0.647170s notice: A newer version of the RethinkDB server is available: 2.4.0. You can read the changelog at <https://github.com/rethinkdb/rethinkdb/releases>.
+2022-03-15T14:56:33.180220700 25.934763s info: Table 680e2c5f-af8a-4872-bb4c-f08d9ace258f: Starting a new Raft election for term 1.
+2022-03-15T14:56:33.180665300 25.935152s info: Table 680e2c5f-af8a-4872-bb4c-f08d9ace258f: Added replica on this server.
+2022-03-15T14:56:33.184602800 25.939429s info: Table d307923e-ed2f-4db6-b222-02deaeb956af: Starting a new Raft election for term 1.
+2022-03-15T14:56:33.184602801 25.939605s info: Table d307923e-ed2f-4db6-b222-02deaeb956af: Added replica on this server.
+2022-03-15T14:56:33.201183200 25.955741s info: Table 1d98cf0f-7d6e-4e61-a273-0bd09df2cecc: Starting a new Raft election for term 1.
+2022-03-15T14:56:33.201183201 25.955906s info: Table 1d98cf0f-7d6e-4e61-a273-0bd09df2cecc: Added replica on this server.
+2022-03-15T14:56:33.203191600 25.958039s info: Table 3f3e380d-bd11-44f6-b3b7-12a3887af27b: Starting a new Raft election for term 1.
+2022-03-15T14:56:33.203191601 25.958185s info: Table 3f3e380d-bd11-44f6-b3b7-12a3887af27b: Added replica on this server.
+2022-03-15T14:56:33.205191600 25.960312s info: Table c46d00ee-a10d-4eab-a70a-e9401b4f2398: Starting a new Raft election for term 1.
+2022-03-15T14:56:33.206192400 25.960487s info: Table c46d00ee-a10d-4eab-a70a-e9401b4f2398: Added replica on this server.
+2022-03-15T14:56:33.211191200 25.966186s info: Table 680e2c5f-af8a-4872-bb4c-f08d9ace258f: This server is Raft leader for term 1. Latest log index is 0.
+2022-03-15T14:56:33.211191201 25.966222s info: Table d307923e-ed2f-4db6-b222-02deaeb956af: This server is Raft leader for term 1. Latest log index is 0.
+2022-03-15T14:56:33.216191200 25.971188s info: Table 1d98cf0f-7d6e-4e61-a273-0bd09df2cecc: This server is Raft leader for term 1. Latest log index is 0.
+2022-03-15T14:56:33.216191201 25.971220s info: Table 3f3e380d-bd11-44f6-b3b7-12a3887af27b: This server is Raft leader for term 1. Latest log index is 0.
+2022-03-15T14:56:33.223901200 25.978653s info: Table c46d00ee-a10d-4eab-a70a-e9401b4f2398: This server is Raft leader for term 1. Latest log index is 0.
+2022-03-15T14:58:21.883122100 134.637718s notice: Server got Close (End Task) Event; shutting down...

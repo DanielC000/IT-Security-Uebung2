@@ -175,7 +175,7 @@ export class DatabaseService {
         return new Promise((resolve, reject) => {
             this.connect().then((connection: Connection) => {
                 r.db(databaseConfiguration.databaseName)
-                r.table("lightTable")
+                r.table("temperatureTable")
                     .insert({
                         room: temperature.room,
                         actualTemperature: temperature.actualTemperature,

@@ -8,6 +8,7 @@ import { Temperature } from "../../../Shared/temperature.model";
 import { WindowModel } from "../../../Shared/window.model";
 import { Light } from "../../../Shared/light.model";
 import { User } from "../../../Shared/user.model";
+import { Log } from "../../../Shared/log.model";
 
 
 
@@ -60,5 +61,27 @@ export class ConfigurationDeviceUserController implements interfaces.Controller 
             })
 
         response.status(200).send(config);
+    }
+
+    @httpPost('/adddata')
+    public insertTestData(request: Request, response: Response): void {
+        this.loggerService.info('Received get all entries request');
+
+        this.databaseService.insertNewTemperature(new Temperature("Vorzimmer", 21, 21, ""));
+        this.databaseService.insertNewTemperature(new Temperature("Schlafzimmer", 19, 21, ""));
+        this.databaseService.insertNewTemperature(new Temperature("Badezimmer", 22, 21, ""));
+
+        this.databaseService.insertNewWindow(new WindowModel("Schlafzimmer", true, ""));
+        this.databaseService.insertNewWindow(new WindowModel("Vorzimmer", false, ""));
+        this.databaseService.insertNewWindow(new WindowModel("Badezimmer", true, ""));
+
+        this.databaseService.insertNewLight(new Light("Schlafzimmer", "Nachtlicht", true, ""));
+        this.databaseService.insertNewLight(new Light("Schlafzimmer", "Raumlicht", false, ""));
+        this.databaseService.insertNewLight(new Light("Vorzimmer", "Raumlicht", false, ""));
+        this.databaseService.insertNewLight(new Light("Badezimmer", "Hintergrundbeleuchtung", true, ""));
+
+        this.databaseService.insertNewLog(new Log("Upload test data success", Date.now().toString(),"","SuperAdmin"))
+
+        response.status(200).send();
     }
 }
