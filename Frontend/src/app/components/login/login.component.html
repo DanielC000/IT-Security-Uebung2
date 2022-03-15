@@ -1,0 +1,49 @@
+<div class="login-wrapper">
+  <div class="card-shadow">
+    <mat-card class="card">
+      <mat-card-header>
+        <mat-card-title>Log in</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form (ngSubmit)="onLogin()" name="loginForm" [formGroup]="loginForm">
+          <div class="username-Input">
+            <mat-form-field class="full-width" appearance="standard">
+              <mat-label>Username</mat-label>
+              <input
+                formControlName="username"
+                matInput
+                placeholder="Username" required
+              />
+              <mat-error *ngIf="!loginForm.controls['username'].valid">
+                Username is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="password-Input">
+            <mat-form-field class="full-width" appearance="standard">
+              <mat-label>Password</mat-label>
+              <input
+                formControlName="password"
+                matInput [type]=" hide ? 'password' : 'text'"
+                placeholder="Password" required/>
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide Password'"
+                      [attr.aria-pressed]="hide">
+                <mat-icon>
+                  {{hide ? 'visibility' : 'visibility_off'}}
+                </mat-icon>
+              </button>
+              <mat-error *ngIf="!loginForm.controls['password'].valid">
+                Password is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <button class="login-button" mat-flat-button color="primary">Login</button>
+        </form>
+        <div class="button-row">
+          <a href="/register">Create a new Account</a>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
