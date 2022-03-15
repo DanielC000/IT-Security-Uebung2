@@ -53,9 +53,9 @@ export class LoginController implements interfaces.Controller {
         this.databaseService.insertNewTemperature(new Temperature("Schlafzimmer", 19, 21, ""));
         this.databaseService.insertNewTemperature(new Temperature("Badezimmer", 22, 21, ""));
 
-        this.databaseService.insertNewWindow(new WindowModel("Schlafzimmer", true, ""));
-        this.databaseService.insertNewWindow(new WindowModel("Vorzimmer", false, ""));
-        this.databaseService.insertNewWindow(new WindowModel("Badezimmer", true, ""));
+        this.databaseService.insertNewWindow(new WindowModel("Schlafzimmer", true, "", "1"));
+        this.databaseService.insertNewWindow(new WindowModel("Vorzimmer", false, "", "2"));
+        this.databaseService.insertNewWindow(new WindowModel("Badezimmer", true, "", "3"));
 
         this.databaseService.insertNewLight(new Light("Schlafzimmer", "Nachtlicht", true, ""));
         this.databaseService.insertNewLight(new Light("Schlafzimmer", "Raumlicht", false, ""));

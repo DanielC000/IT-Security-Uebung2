@@ -70,7 +70,7 @@ export class OverviewController implements interfaces.Controller {
             .then(() => {
                 response.status(200).send();
                 let session: Session = response.locals.session;
-                this.databaseService.insertNewLog(new Log("Changed "+request.body.light.name+ " to " + request.body.light.on, Date.now().toString(),"", session.username))
+                this.databaseService.insertNewLog(new Log("Changed light from: "+request.body.light.name+ " to " + request.body.light.on, Date.now().toString(),"", session.username))
             })
             .catch(error => {
                 response.status(500).send(error);
@@ -85,7 +85,7 @@ export class OverviewController implements interfaces.Controller {
             .then(() => {
                 response.status(200).send();
                 let session: Session = response.locals.session;
-                this.databaseService.insertNewLog(new Log("Changed "+request.body.temperature.name+ " to " + request.body.temperature.targetTemperature, Date.now().toString(),"", session.username))
+                this.databaseService.insertNewLog(new Log("Changed temperature from: "+request.body.temperature.name+ " to " + request.body.temperature.targetTemperature, Date.now().toString(),"", session.username))
             })
             .catch(error => {
                 response.status(500).send(error);
@@ -100,7 +100,7 @@ export class OverviewController implements interfaces.Controller {
             .then(() => {
                 response.status(200).send();
                 let session: Session = response.locals.session;
-                this.databaseService.insertNewLog(new Log("Changed "+request.body.window.name+ " to " + request.body.window.open, Date.now().toString(),"", session.username))
+                this.databaseService.insertNewLog(new Log("Changed window "+request.body.window.name+ " to " + request.body.window.open, Date.now().toString(),"", session.username))
             })
             .catch(error => {
                 response.status(500).send(error);

@@ -155,6 +155,7 @@ export class DatabaseService {
                 r.db(databaseConfiguration.databaseName)
                 r.table("windowTable")
                     .insert({
+                        name: window.name,
                         room: window.room,
                         open: window.open,
                     })
