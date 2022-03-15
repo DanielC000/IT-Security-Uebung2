@@ -19,6 +19,9 @@ const server = new InversifyExpressServer(container.getContainer());
 
 
 server.setConfig((app) => {
+    app.use("/overview", requireJwtMiddleware);
+    app.use("/configuration", requireJwtMiddleware);
+
     let cors = require('cors');
     app.use(cors({origin: `*`}));
     app.use(bodyParser.urlencoded({
@@ -26,9 +29,6 @@ server.setConfig((app) => {
     }));
     app.use(bodyParser.json());
     app.options('https://localhost:4200', cors());
-
-    app.use("/overview", requireJwtMiddleware);
-    app.use("/configuration", requireJwtMiddleware);
 });
 
 databaseService.initialize().then(()=>{

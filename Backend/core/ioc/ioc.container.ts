@@ -6,6 +6,7 @@ import {DatabaseService} from '../services/database.service';
 import {LoginController} from '../../api/login/login.controller';
 import {ConfigurationDeviceUserController} from "../../api/config/ConfigurationDeviceUser.controller";
 import {OverviewController} from "../../api/overview/overview.controller";
+import { UserLogsController } from '../../api/userlog/userlog.controller';
 
 
 export class IoContainer {
@@ -30,6 +31,9 @@ export class IoContainer {
         this.container.bind<interfaces.Controller>(TYPE.Controller)
             .to(ConfigurationDeviceUserController)
             .whenTargetNamed(ConfigurationDeviceUserController.name);
+        this.container.bind<interfaces.Controller>(TYPE.Controller)
+            .to(UserLogsController)
+            .whenTargetNamed(UserLogsController.name);
     }
 
     private initServices(): void {

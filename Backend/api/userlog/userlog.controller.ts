@@ -9,7 +9,7 @@ import { Log } from "../../../Shared/log.model";
 
 @controller('/userlogs')
 @injectable()
-export class LoginController implements interfaces.Controller {
+export class UserLogsController implements interfaces.Controller {
     constructor(
         @inject(DatabaseService.name) private databaseService: DatabaseService,
         @inject(LoggerService.name) private loggerService: LoggerService,

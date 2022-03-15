@@ -5,6 +5,7 @@ import { ExpirationStatus } from "./expirationStatus";
 import { Session } from "./session";
 import { checkExpirationStatus } from "./checkExpirationStatus";
 import { encodeSession } from "./encodeSession";
+import * as HS512_key from '../Environment/HS512_key.json';
 
 
 /**
@@ -20,16 +21,16 @@ export function requireJwtMiddleware(request: Request, response: Response, next:
     const requestHeader = "authorization";
     const responseHeader = "authorization";
 
-    const header = request.header(requestHeader).substring(7);
+    let header = request.header(requestHeader)
     
-    console.log(header);
-
     if (!header) {
         unauthorized(`Required ${requestHeader} header not found.`);
         return;
     }
 
-    const decodedSession: DecodeResult = decodeSession("SECRET_KEY_HERE", header);
+    header = header.substring(7);
+
+    const decodedSession: DecodeResult = decodeSession(HS512_key.key, header);
     
     if (decodedSession.type === "integrity-error" || decodedSession.type === "invalid-token") {
         unauthorized(`Failed to decode or validate authorization token. Reason: ${decodedSession.type}.`);
@@ -47,7 +48,7 @@ export function requireJwtMiddleware(request: Request, response: Response, next:
 
     if (expiration === "grace") {
         // Automatically renew the session and send it back with the response
-        const { token, expires, issued } = encodeSession("SECRET_KEY_HERE", decodedSession.session);
+        const { token, expires, issued } = encodeSession(HS512_key.key, decodedSession.session);
         session = {
             ...decodedSession.session,
             expires: expires,

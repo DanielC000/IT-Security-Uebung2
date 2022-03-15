@@ -9,6 +9,8 @@ import { Temperature } from "../../../Shared/temperature.model";
 import { WindowModel } from "../../../Shared/window.model";
 import { Light } from "../../../Shared/light.model";
 import { Log } from "../../../Shared/log.model";
+import * as HS512_key from '../../Environment/HS512_key.json';
+
 
 @controller('/user')
 @injectable()
@@ -31,7 +33,7 @@ export class LoginController implements interfaces.Controller {
                 })
             } else {
                 user.password = '';
-                const session = encodeSession("SECRET_KEY_HERE", {
+                const session = encodeSession(HS512_key.key, {
                     id: user.id,
                     username: user.username,
                     dateCreated: Date.now()        
@@ -62,10 +64,10 @@ export class LoginController implements interfaces.Controller {
         this.databaseService.insertNewLight(new Light("Vorzimmer", "Raumlicht", false, ""));
         this.databaseService.insertNewLight(new Light("Badezimmer", "Hintergrundbeleuchtung", true, ""));
 
-        this.databaseService.insertNewLog(new Log("Upload test data success", Date.now().toString(),"","SuperAdmin"))
+        this.databaseService.insertNewLog(new Log("Upload test data success", Date.now(),"","SuperAdmin"))
 
-        this.databaseService.insertUser(new User("Superuser","changeme","",["Admin","User"],""));
-        this.databaseService.insertUser(new User("User","changeme","",["User"],""));
+        this.databaseService.insertUser(new User("Superuser","123","",["Admin","User"]));
+        this.databaseService.insertUser(new User("User","123","",["User"]));
 
         response.status(200).send();
     }
