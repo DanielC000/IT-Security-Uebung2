@@ -1,12 +1,309 @@
-<div>
+<div class="table-container">
   <table mat-table [dataSource]="lightingDevices">
     <ng-container matColumnDef="deviceName">
-      <th mat-header-cell>
+      <th mat-header-cell *matHeaderCellDef class="left-aligned-header">
         Name
       </th>
-      <td mat-cell *matCellDef="let element">
+      <td mat-cell *matCellDef="let element" class="left-aligned-content">
         {{element.name}}
       </td>
     </ng-container>
+
+    <ng-container matColumnDef="room">
+      <th mat-header-cell *matHeaderCellDef class="center-aligned-header">
+        Room
+      </th>
+      <td mat-cell *matCellDef="let element" class="center-aligned-content">
+        {{element.room}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="on">
+      <th mat-header-cell *matHeaderCellDef class="center-aligned-header">
+        Active
+      </th>
+      <td mat-cell *matCellDef="let element" class="center-aligned-content">
+        <button
+          *ngIf="element.on"
+          mat-raised-button
+          (click)="toggleLightActivationStatus(element)"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            x="0px"
+            y="0px"
+            width="40"
+            height="40"
+            viewBox="0 0 226 226"
+            style="fill: #000000"
+          >
+            <g
+              fill="none"
+              fill-rule="nonzero"
+              stroke="none"
+              stroke-width="1"
+              stroke-linecap="butt"
+              stroke-linejoin="miter"
+              stroke-miterlimit="10"
+              stroke-dasharray=""
+              stroke-dashoffset="0"
+              font-family="none"
+              font-weight="none"
+              font-size="none"
+              text-anchor="none"
+              style="mix-blend-mode: normal"
+            >
+              <path d="M0,226v-226h226v226z" fill="none"></path>
+              <g>
+                <path
+                  d="M16.95,172.325c-7.7857,0 -14.125,-6.3393 -14.125,-14.125v-90.4c0,-7.7857 6.3393,-14.125 14.125,-14.125h192.1c7.7857,0 14.125,6.3393 14.125,14.125v90.4c0,7.7857 -6.3393,14.125 -14.125,14.125z"
+                  fill="#2ecc71"
+                ></path>
+                <path
+                  d="M209.05,56.5c6.23195,0 11.3,5.06805 11.3,11.3v90.4c0,6.23195 -5.06805,11.3 -11.3,11.3h-192.1c-6.23195,0 -11.3,-5.06805 -11.3,-11.3v-90.4c0,-6.23195 5.06805,-11.3 11.3,-11.3h192.1M209.05,50.85h-192.1c-9.36205,0 -16.95,7.58795 -16.95,16.95v90.4c0,9.36205 7.58795,16.95 16.95,16.95h192.1c9.36205,0 16.95,-7.58795 16.95,-16.95v-90.4c0,-9.36205 -7.58795,-16.95 -16.95,-16.95z"
+                  fill="#2ecc71"
+                ></path>
+                <path
+                  d="M121.475,158.2h84.75c1.5594,0 2.825,-1.2656 2.825,-2.825v-84.75c0,-1.5594 -1.2656,-2.825 -2.825,-2.825h-84.75c-1.5594,0 -2.825,1.2656 -2.825,2.825v84.75c0,1.5594 1.2656,2.825 2.825,2.825z"
+                  fill="#ffffff"
+                ></path>
+              </g>
+            </g>
+          </svg>
+        </button>
+        <button
+          *ngIf="!element.on"
+          mat-raised-button
+          (click)="toggleLightActivationStatus(element)"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            x="0px"
+            y="0px"
+            width="40"
+            height="40"
+            viewBox="0 0 226 226"
+            style="fill: #000000"
+          >
+            <g
+              fill="none"
+              fill-rule="nonzero"
+              stroke="none"
+              stroke-width="1"
+              stroke-linecap="butt"
+              stroke-linejoin="miter"
+              stroke-miterlimit="10"
+              stroke-dasharray=""
+              stroke-dashoffset="0"
+              font-family="none"
+              font-weight="none"
+              font-size="none"
+              text-anchor="none"
+              style="mix-blend-mode: normal"
+            >
+              <path d="M0,226v-226h226v226z" fill="none"></path>
+              <g>
+                <path
+                  d="M16.95,172.325c-7.7857,0 -14.125,-6.3393 -14.125,-14.125v-90.4c0,-7.7857 6.3393,-14.125 14.125,-14.125h192.1c7.7857,0 14.125,6.3393 14.125,14.125v90.4c0,7.7857 -6.3393,14.125 -14.125,14.125z"
+                  fill="#e74c3c"
+                ></path>
+                <path
+                  d="M209.05,56.5c6.23195,0 11.3,5.06805 11.3,11.3v90.4c0,6.23195 -5.06805,11.3 -11.3,11.3h-192.1c-6.23195,0 -11.3,-5.06805 -11.3,-11.3v-90.4c0,-6.23195 5.06805,-11.3 11.3,-11.3h192.1M209.05,50.85h-192.1c-9.36205,0 -16.95,7.58795 -16.95,16.95v90.4c0,9.36205 7.58795,16.95 16.95,16.95h192.1c9.36205,0 16.95,-7.58795 16.95,-16.95v-90.4c0,-9.36205 -7.58795,-16.95 -16.95,-16.95z"
+                  fill="#e74c3c"
+                ></path>
+                <path
+                  d="M104.525,67.8h-84.75c-1.5594,0 -2.825,1.2656 -2.825,2.825v84.75c0,1.5594 1.2656,2.825 2.825,2.825h84.75c1.5594,0 2.825,-1.2656 2.825,-2.825v-84.75c0,-1.5594 -1.2656,-2.825 -2.825,-2.825z"
+                  fill="#ffffff"
+                ></path>
+              </g>
+            </g>
+          </svg>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedLightingColumns"
+    ></tr>
+  </table>
+</div>
+
+<div class="table-container">
+  <table mat-table [dataSource]="temperatureDevices">
+    <ng-container matColumnDef="deviceName">
+      <th mat-header-cell *matHeaderCellDef class="left-aligned-header">
+        Name
+      </th>
+      <td mat-cell *matCellDef="let element" class="left-aligned-content">
+        {{element.name}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="room">
+      <th mat-header-cell *matHeaderCellDef class="center-aligned-header">
+        Room
+      </th>
+      <td mat-cell *matCellDef="let element" class="center-aligned-content">
+        {{element.room}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actualTemperature">
+      <th mat-header-cell *matHeaderCellDef class="center-aligned-header">
+        name
+      </th>
+      <td mat-cell *matCellDef="let element" class="center-aligned-content">
+        {{element.actualTemperature}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="targetTemperature">
+      <th mat-header-cell *matHeaderCellDef class="center-aligned-header">
+        name
+      </th>
+      <td mat-cell *matCellDef="let element" class="center-aligned-content">
+        <input matInput [value]="element.targetTemperature">
+        <button (click)="setTemperature(element)">
+          Set
+        </button>
+      </td>
+    </ng-container>
+
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedTemperatureColumns"
+    ></tr>
+  </table>
+</div>
+
+<div class="table-container">
+  <table mat-table [dataSource]="windowDevices">
+    <ng-container matColumnDef="windowName">
+      <th mat-header-cell *matHeaderCellDef class="left-aligned-header">
+        Name
+      </th>
+      <td mat-cell *matCellDef="let element" class="left-aligned-content">
+        {{element.name}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="room">
+      <th mat-header-cell *matHeaderCellDef class="center-aligned-header">
+        Room
+      </th>
+      <td mat-cell *matCellDef="let element" class="center-aligned-content">
+        {{element.room}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="open">
+      <th mat-header-cell *matHeaderCellDef class="center-aligned-header">
+        Active
+      </th>
+      <td mat-cell *matCellDef="let element" class="center-aligned-content">
+        <button
+          *ngIf="element.isOpen"
+          mat-raised-button
+          (click)="toggleWindowActivationStatus(element)"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            x="0px"
+            y="0px"
+            width="40"
+            height="40"
+            viewBox="0 0 226 226"
+            style="fill: #000000"
+          >
+            <g
+              fill="none"
+              fill-rule="nonzero"
+              stroke="none"
+              stroke-width="1"
+              stroke-linecap="butt"
+              stroke-linejoin="miter"
+              stroke-miterlimit="10"
+              stroke-dasharray=""
+              stroke-dashoffset="0"
+              font-family="none"
+              font-weight="none"
+              font-size="none"
+              text-anchor="none"
+              style="mix-blend-mode: normal"
+            >
+              <path d="M0,226v-226h226v226z" fill="none"></path>
+              <g>
+                <path
+                  d="M16.95,172.325c-7.7857,0 -14.125,-6.3393 -14.125,-14.125v-90.4c0,-7.7857 6.3393,-14.125 14.125,-14.125h192.1c7.7857,0 14.125,6.3393 14.125,14.125v90.4c0,7.7857 -6.3393,14.125 -14.125,14.125z"
+                  fill="#2ecc71"
+                ></path>
+                <path
+                  d="M209.05,56.5c6.23195,0 11.3,5.06805 11.3,11.3v90.4c0,6.23195 -5.06805,11.3 -11.3,11.3h-192.1c-6.23195,0 -11.3,-5.06805 -11.3,-11.3v-90.4c0,-6.23195 5.06805,-11.3 11.3,-11.3h192.1M209.05,50.85h-192.1c-9.36205,0 -16.95,7.58795 -16.95,16.95v90.4c0,9.36205 7.58795,16.95 16.95,16.95h192.1c9.36205,0 16.95,-7.58795 16.95,-16.95v-90.4c0,-9.36205 -7.58795,-16.95 -16.95,-16.95z"
+                  fill="#2ecc71"
+                ></path>
+                <path
+                  d="M121.475,158.2h84.75c1.5594,0 2.825,-1.2656 2.825,-2.825v-84.75c0,-1.5594 -1.2656,-2.825 -2.825,-2.825h-84.75c-1.5594,0 -2.825,1.2656 -2.825,2.825v84.75c0,1.5594 1.2656,2.825 2.825,2.825z"
+                  fill="#ffffff"
+                ></path>
+              </g>
+            </g>
+          </svg>
+        </button>
+        <button
+          *ngIf="!element.isOpen"
+          mat-raised-button
+          (click)="toggleWindowActivationStatus(element)"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            x="0px"
+            y="0px"
+            width="40"
+            height="40"
+            viewBox="0 0 226 226"
+            style="fill: #000000"
+          >
+            <g
+              fill="none"
+              fill-rule="nonzero"
+              stroke="none"
+              stroke-width="1"
+              stroke-linecap="butt"
+              stroke-linejoin="miter"
+              stroke-miterlimit="10"
+              stroke-dasharray=""
+              stroke-dashoffset="0"
+              font-family="none"
+              font-weight="none"
+              font-size="none"
+              text-anchor="none"
+              style="mix-blend-mode: normal"
+            >
+              <path d="M0,226v-226h226v226z" fill="none"></path>
+              <g>
+                <path
+                  d="M16.95,172.325c-7.7857,0 -14.125,-6.3393 -14.125,-14.125v-90.4c0,-7.7857 6.3393,-14.125 14.125,-14.125h192.1c7.7857,0 14.125,6.3393 14.125,14.125v90.4c0,7.7857 -6.3393,14.125 -14.125,14.125z"
+                  fill="#e74c3c"
+                ></path>
+                <path
+                  d="M209.05,56.5c6.23195,0 11.3,5.06805 11.3,11.3v90.4c0,6.23195 -5.06805,11.3 -11.3,11.3h-192.1c-6.23195,0 -11.3,-5.06805 -11.3,-11.3v-90.4c0,-6.23195 5.06805,-11.3 11.3,-11.3h192.1M209.05,50.85h-192.1c-9.36205,0 -16.95,7.58795 -16.95,16.95v90.4c0,9.36205 7.58795,16.95 16.95,16.95h192.1c9.36205,0 16.95,-7.58795 16.95,-16.95v-90.4c0,-9.36205 -7.58795,-16.95 -16.95,-16.95z"
+                  fill="#e74c3c"
+                ></path>
+                <path
+                  d="M104.525,67.8h-84.75c-1.5594,0 -2.825,1.2656 -2.825,2.825v84.75c0,1.5594 1.2656,2.825 2.825,2.825h84.75c1.5594,0 2.825,-1.2656 2.825,-2.825v-84.75c0,-1.5594 -1.2656,-2.825 -2.825,-2.825z"
+                  fill="#ffffff"
+                ></path>
+              </g>
+            </g>
+          </svg>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedWindowColumns"
+    ></tr>
   </table>
 </div>
