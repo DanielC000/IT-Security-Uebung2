@@ -36,8 +36,10 @@ export class LoginController implements interfaces.Controller {
                     username: user.username,
                     dateCreated: Date.now()        
                 });
+
+                user.jwtToken = session.token;
                 
-                response.status(201).json(session);
+                response.status(201).json(user);
                 this.loggerService.info('valid login request');
             }
         });
@@ -62,8 +64,8 @@ export class LoginController implements interfaces.Controller {
 
         this.databaseService.insertNewLog(new Log("Upload test data success", Date.now().toString(),"","SuperAdmin"))
 
-        this.databaseService.insertUser(new User("Superuser","123","",true));
-        this.databaseService.insertUser(new User("User","123","",false));
+        this.databaseService.insertUser(new User("Superuser","123","",["Admin","User"]));
+        this.databaseService.insertUser(new User("User","123","",["User"]));
 
         response.status(200).send();
     }

@@ -110,7 +110,7 @@ export class DatabaseService {
                     .insert({
                         username: user.username,
                         password: user.password,
-                        admin: user.admin,
+                        role: user.role,
                     })
                     .run(connection)
                     .then(function (response) {
