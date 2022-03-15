@@ -12,3 +12,4 @@ export class Light {
         this.id = id;
     }
 }
+

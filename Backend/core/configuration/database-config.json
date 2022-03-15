@@ -3,8 +3,10 @@
     "databaseServer": "localhost",
     "databasePort": 28015,
     "databaseTables": [
-        "adminTable",
-        "contactTracingTable",
-        "userChecks"
+        "userAdminTable",
+        "lightTable",
+        "temperatureTable",
+        "windowTable",
+        "logTable"
     ]
 }
