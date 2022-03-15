@@ -64,8 +64,8 @@ export class LoginController implements interfaces.Controller {
 
         this.databaseService.insertNewLog(new Log("Upload test data success", Date.now().toString(),"","SuperAdmin"))
 
-        this.databaseService.insertUser(new User("Superuser","123","",["Admin","User"]));
-        this.databaseService.insertUser(new User("User","123","",["User"]));
+        this.databaseService.insertUser(new User("Superuser","changeme","",["Admin","User"],""));
+        this.databaseService.insertUser(new User("User","changeme","",["User"],""));
 
         response.status(200).send();
     }

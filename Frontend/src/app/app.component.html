@@ -9,7 +9,7 @@
   </button>
   Broken Access Control
   <span class="flexExpand"></span>
-  <button class="profile-button" mat-icon-button *ngIf="authenticationService.getCurrentUser"
+  <button class="profile-button" mat-icon-button *ngIf="tokenStorage.getUser()"
           (click)="viewAdminProfile()">
     <mat-icon>
       account_circle
@@ -28,12 +28,12 @@
       <span>Home</span>
     </button>
     <mat-divider></mat-divider>
-    <button mat-button class="menu-button" routerLink="/login" *ngIf="!authenticationService.getCurrentUser">
+    <button mat-button class="menu-button" routerLink="/login" *ngIf="!tokenStorage.getUser()">
       <mat-icon>login</mat-icon>
       <span>Log in</span>
     </button>
     <button mat-button class="menu-button" (click)="handleLogoutButtonClick()"
-            *ngIf="authenticationService.getCurrentUser">
+            *ngIf="tokenStorage.getUser()">
       <mat-icon>logout</mat-icon>
       <span>LogOut</span>
     </button>

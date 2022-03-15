@@ -1,52 +1,52 @@
-<div class="account-wrapper">
-  <div class="card-shadow">
-    <mat-card class="card">
-      <mat-card-header>
-        <mat-card-title>Account</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <form (ngSubmit)="onSubmit()" name="accountForm" [formGroup]="accountForm">
-          <img width="200px" height="200px" src="{{this.admin.profileImg}}">
-          <div class="username-Input">
-            <mat-form-field class="full-width" appearance="standard">
-              <mat-label>Username</mat-label>
-              <input
-                formControlName="username"
-                matInput
-                placeholder="Username" required
-              />
-            </mat-form-field>
-          </div>
-          <div class="username-Input">
-            <mat-form-field class="full-width" appearance="standard">
-              <mat-label>Profile Picture Link</mat-label>
-              <input
-                formControlName="profileImg"
-                matInput
-                placeholder="Link"
-              />
-            </mat-form-field>
-          </div>
-          <div class="email-input">
-            <mat-form-field class="full-width" appearance="standard">
-              <mat-label>E-Mail</mat-label>
-              <input
-                formControlName="email"
-                matInput
-                placeholder="E-Mail" required
-              />
-              <mat-error *ngIf="!accountForm.controls['email'].valid">
-                Email is invalid
-              </mat-error>
-            </mat-form-field>
-          </div>
-          <button class="buttons" type="button" mat-flat-button color="accent" (click)="onChangePassword()">Change
-            Password
-          </button>
-          <button class="buttons" type="button" mat-flat-button (click)="onBack()">Back</button>
-          <button [disabled]="changeMade()" class="buttons" mat-flat-button color="primary">Save</button>
-        </form>
-      </mat-card-content>
-    </mat-card>
-  </div>
-</div>
+<!--<div class="account-wrapper">-->
+<!--  <div class="card-shadow">-->
+<!--    <mat-card class="card">-->
+<!--      <mat-card-header>-->
+<!--        <mat-card-title>Account</mat-card-title>-->
+<!--      </mat-card-header>-->
+<!--      <mat-card-content>-->
+<!--        <form (ngSubmit)="onSubmit()" name="accountForm" [formGroup]="accountForm">-->
+<!--          <img width="200px" height="200px" src="{{this.admin.profileImg}}">-->
+<!--          <div class="username-Input">-->
+<!--            <mat-form-field class="full-width" appearance="standard">-->
+<!--              <mat-label>Username</mat-label>-->
+<!--              <input-->
+<!--                formControlName="username"-->
+<!--                matInput-->
+<!--                placeholder="Username" required-->
+<!--              />-->
+<!--            </mat-form-field>-->
+<!--          </div>-->
+<!--          <div class="username-Input">-->
+<!--            <mat-form-field class="full-width" appearance="standard">-->
+<!--              <mat-label>Profile Picture Link</mat-label>-->
+<!--              <input-->
+<!--                formControlName="profileImg"-->
+<!--                matInput-->
+<!--                placeholder="Link"-->
+<!--              />-->
+<!--            </mat-form-field>-->
+<!--          </div>-->
+<!--          <div class="email-input">-->
+<!--            <mat-form-field class="full-width" appearance="standard">-->
+<!--              <mat-label>E-Mail</mat-label>-->
+<!--              <input-->
+<!--                formControlName="email"-->
+<!--                matInput-->
+<!--                placeholder="E-Mail" required-->
+<!--              />-->
+<!--              <mat-error *ngIf="!accountForm.controls['email'].valid">-->
+<!--                Email is invalid-->
+<!--              </mat-error>-->
+<!--            </mat-form-field>-->
+<!--          </div>-->
+<!--          <button class="buttons" type="button" mat-flat-button color="accent" (click)="onChangePassword()">Change-->
+<!--            Password-->
+<!--          </button>-->
+<!--          <button class="buttons" type="button" mat-flat-button (click)="onBack()">Back</button>-->
+<!--          <button [disabled]="changeMade()" class="buttons" mat-flat-button color="primary">Save</button>-->
+<!--        </form>-->
+<!--      </mat-card-content>-->
+<!--    </mat-card>-->
+<!--  </div>-->
+<!--</div>-->

@@ -8,6 +8,7 @@ import {AccountService} from "../../services/account/account.service";
 import {ChangePasswordDialogComponent} from "../dialog/change-password-dialog/change-password-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmationDialogComponent} from "../dialog/confirmation-dialog/confirmation-dialog.component";
+import {TokenStorageService} from "../../services/token-storage/token-storage.service";
 
 @Component({
   selector: 'app-admin-account',
@@ -27,18 +28,19 @@ export class AdminAccountComponent implements OnInit {
               private router: Router,
               private accountService: AccountService,
               private route: ActivatedRoute,
+              private tokenStorage: TokenStorageService,
               public dialog: MatDialog
   ) {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 
-    if (this.authenticationService.getCurrentUser == null) {
+    if (this.tokenStorage.getUser() == null) {
       this.router.navigate([this.returnUrl]);
     }
   }
 
   ngOnInit(): void {
 
-    this.updateCurrentUser();
+    // this.updateCurrentUser();
 
     this.accountForm = this.accountFormBuilder.group({
       username: [this.admin.username, [Validators.minLength(6)]],
@@ -47,45 +49,45 @@ export class AdminAccountComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-    if (this.accountForm.invalid) {
-      return;
-    }
-    let admin = new Admin(this.accountForm.value.username,
-      this.accountForm.value.password, this.accountForm.value.email, this.accountForm.value.profileImg, this.admin.id);
-    this.accountService.editAdmin(admin)
-      .subscribe({
-        next: () => {
-          this.loggerService.log('admin account edit successful')
-          this.authenticationService.updateUser(admin);
-          this.dialog.open(ConfirmationDialogComponent, {
-            data: 'Account edited successfully.'
-          });
-          this.updateCurrentUser();
-        },
-        error: (err) => {
-          this.loggerService.log('error while attempting to edit admin account');
-          this.loggerService.log(err);
-          this.dialog.open(ConfirmationDialogComponent, {
-            data: 'Could not edit account.'
-          });
-        }
-      })
-  }
+  // onSubmit() {
+  //   if (this.accountForm.invalid) {
+  //     return;
+  //   }
+  //   let admin = new Admin(this.accountForm.value.username,
+  //     this.accountForm.value.password, this.accountForm.value.email, this.accountForm.value.profileImg, this.admin.id);
+  //   this.accountService.editAdmin(admin)
+  //     .subscribe({
+  //       next: () => {
+  //         this.loggerService.log('admin account edit successful')
+  //         this.authenticationService.updateUser(admin);
+  //         this.dialog.open(ConfirmationDialogComponent, {
+  //           data: 'Account edited successfully.'
+  //         });
+  //         this.updateCurrentUser();
+  //       },
+  //       error: (err) => {
+  //         this.loggerService.log('error while attempting to edit admin account');
+  //         this.loggerService.log(err);
+  //         this.dialog.open(ConfirmationDialogComponent, {
+  //           data: 'Could not edit account.'
+  //         });
+  //       }
+  //     })
+  // }
 
   onBack() {
     this.router.navigate([this.returnUrl]);
   }
 
-  updateCurrentUser(){
-    let admin = this.authenticationService.getCurrentUser;
-
-    if (admin != null) {
-      this.admin = JSON.parse(admin);
-    } else {
-      this.router.navigate(['/home']);
-    }
-  }
+  // updateCurrentUser(){
+  //   let admin = this.authenticationService.getCurrentUser;
+  //
+  //   if (admin != null) {
+  //     this.admin = JSON.parse(admin);
+  //   } else {
+  //     this.router.navigate(['/home']);
+  //   }
+  // }
 
   changeMade() {
     if (this.accountForm.invalid) {

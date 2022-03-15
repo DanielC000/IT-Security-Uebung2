@@ -2,7 +2,6 @@ export class WindowModel {
 
     name: string;
     id: string;
-    name: string;
     room: string;
     isOpen: boolean;
 

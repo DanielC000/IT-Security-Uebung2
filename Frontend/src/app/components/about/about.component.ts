@@ -28,12 +28,4 @@ export class AboutComponent implements OnInit {
     });
   }
 
-  isAdminPresent(): boolean {
-    let admin = this.authenticationService.getCurrentUser;
-
-    if (admin == null){
-      return true;
-    }
-    return false;
-  }
 }

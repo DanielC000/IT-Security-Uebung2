@@ -6,10 +6,11 @@ export class User {
     role: string[];
     jwtToken: string;
 
-    constructor(username: string, password: string, id: string, role: string[]) {
+    constructor(username: string, password: string, id: string, role: string[], token: string) {
         this.password = password;
         this.username = username;
         this.id = id;
         this.role = role;
+        this.jwtToken = token;
     }
 }

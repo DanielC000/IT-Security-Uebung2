@@ -6,6 +6,7 @@ import {delay} from "rxjs";
 import {NativeObjectService} from "./services/native-object.service";
 import {AuthenticationService} from "./services/authentication/authentication.service";
 import {Router} from "@angular/router";
+import {TokenStorageService} from "./services/token-storage/token-storage.service";
 
 @Component({
   selector: 'app-root',
@@ -24,6 +25,7 @@ export class AppComponent {
     protected nativeObjectService: NativeObjectService,
     public authenticationService: AuthenticationService,
     public router: Router,
+    public tokenStorage: TokenStorageService,
   ) {
     this.loggerService.log('APP Component Init')
   }
@@ -45,7 +47,7 @@ export class AppComponent {
 
 
   handleLogoutButtonClick() {
-    this.authenticationService.logout();
+    this.tokenStorage.signOut();
     // this.nativeObjectService.getNativeWindow().location.href= "/home";
     this.router.navigate(['/home']);
   }

@@ -7,6 +7,10 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {LoggerService} from "../../services/logger/logger.service";
 import {Admin} from "../../models/admin.model";
 import {AppRoutingModule} from "../../app-routing.module";
+import {TokenStorageService} from "../../services/token-storage/token-storage.service";
+import {User} from "../../../../../Shared/user.model";
+import {ConfirmationDialogComponent} from "../dialog/confirmation-dialog/confirmation-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-login',
@@ -29,10 +33,12 @@ export class LoginComponent implements OnInit {
               private router: Router,
               private authenticationService: AuthenticationService,
               private loggerService: LoggerService,
+              private tokenStorage: TokenStorageService,
+              private dialog: MatDialog
   ) {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 
-    if (this.authenticationService.getCurrentUser != null) {
+    if (this.tokenStorage.getUser() != null) {
       this.router.navigate(['/home']);
     }
   }
@@ -49,13 +55,19 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.authenticationService
-      .loginUser(new Admin(
-        this.loginForm.value.username,
-        this.loginForm.value.password,
-        '', '', ''))
-      .then(() => this.router.navigate([this.returnUrl]))
-      .catch(error => this.loggerService.log(error));
-
-    this.loggerService.log(this.loginForm.value);
+      .login(this.loginForm.value.username, this.loginForm.value.password)
+      .subscribe({
+        next: (value: User) => {
+          console.log(value);
+          this.tokenStorage.saveUser(value);
+          this.router.navigate([this.returnUrl]);
+        },
+        error: (error) => {
+          this.loggerService.log(error);
+          this.dialog.open(ConfirmationDialogComponent, {
+            data: error.error.message,
+          });
+        },
+      });
   }
 }

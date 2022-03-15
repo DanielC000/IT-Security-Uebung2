@@ -33,6 +33,7 @@ import {
 import {AboutComponent} from './components/about/about.component';
 import {ConfirmationDialogComponent} from './components/dialog/confirmation-dialog/confirmation-dialog.component';
 import { OverviewComponent } from './components/overview/overview.component';
+import {authInterceptorProviders} from "./helpers/interceptor/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -69,7 +70,7 @@ import { OverviewComponent } from './components/overview/overview.component';
     MatDialogModule
   ],
   providers: [
-    AuthenticationService,
+    authInterceptorProviders,
     NativeObjectService
   ],
   bootstrap: [AppComponent]
