@@ -108,9 +108,9 @@ export class DatabaseService {
                 r.db(databaseConfiguration.databaseName)
                 r.table("userAdminTable")
                     .insert({
-                        usernamename: user.username,
+                        username: user.username,
                         password: user.password,
-                        admin: user.admin,
+                        role: user.role,
                     })
                     .run(connection)
                     .then(function (response) {
@@ -155,8 +155,9 @@ export class DatabaseService {
                 r.db(databaseConfiguration.databaseName)
                 r.table("windowTable")
                     .insert({
+                        name: window.name,
                         room: window.room,
-                        open: window.open,
+                        isOpen: window.isOpen,
                     })
                     .run(connection)
                     .then(function (response) {
@@ -337,7 +338,7 @@ export class DatabaseService {
                     .get(window.id)
                     .update({
                         room: window.room,
-                        open: window.open,
+                        isOpen: window.isOpen,
                     }).run(connection)
                     .then(() => {
                         this.loggerService.info('successfully edited entry.');

@@ -6,6 +6,8 @@ import {Request, Response} from 'express';
 import {Light} from "../../../Shared/light.model";
 import { Temperature } from "../../../Shared/temperature.model";
 import { WindowModel } from "../../../Shared/window.model";
+import { Log } from "../../../Shared/log.model";
+import { Session } from "../../JWT/session";
 
 
 
@@ -62,12 +64,13 @@ export class OverviewController implements interfaces.Controller {
 
     @httpPut('/changelight')
     public changeLight(request: Request, response: Response): void {
-        this.loggerService.info(request.body.user.username);
+        this.loggerService.info(request.body.username);
         this.loggerService.info('received edit entry request');
         this.databaseService.editLight(request.body.light)
             .then(() => {
                 response.status(200).send();
-                this.databaseService.insertNewLog
+                let session: Session = response.locals.session;
+                this.databaseService.insertNewLog(new Log("Changed light from: "+request.body.light.name+ " to " + request.body.light.on, Date.now().toString(),"", session.username))
             })
             .catch(error => {
                 response.status(500).send(error);
@@ -81,6 +84,8 @@ export class OverviewController implements interfaces.Controller {
         this.databaseService.editTemperature(request.body.temperature)
             .then(() => {
                 response.status(200).send();
+                let session: Session = response.locals.session;
+                this.databaseService.insertNewLog(new Log("Changed temperature from: "+request.body.temperature.name+ " to " + request.body.temperature.targetTemperature, Date.now().toString(),"", session.username))
             })
             .catch(error => {
                 response.status(500).send(error);
@@ -94,6 +99,8 @@ export class OverviewController implements interfaces.Controller {
         this.databaseService.editWindow(request.body.window)
             .then(() => {
                 response.status(200).send();
+                let session: Session = response.locals.session;
+                this.databaseService.insertNewLog(new Log("Changed window "+request.body.window.name+ " to " + request.body.window.open, Date.now().toString(),"", session.username))
             })
             .catch(error => {
                 response.status(500).send(error);
