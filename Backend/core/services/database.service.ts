@@ -157,7 +157,7 @@ export class DatabaseService {
                     .insert({
                         name: window.name,
                         room: window.room,
-                        open: window.open,
+                        isOpen: window.isOpen,
                     })
                     .run(connection)
                     .then(function (response) {
@@ -338,7 +338,7 @@ export class DatabaseService {
                     .get(window.id)
                     .update({
                         room: window.room,
-                        open: window.open,
+                        isOpen: window.isOpen,
                     }).run(connection)
                     .then(() => {
                         this.loggerService.info('successfully edited entry.');
