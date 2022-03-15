@@ -2,8 +2,6 @@ import {inject, injectable} from 'inversify';
 import {LoggerService} from './logger.service';
 import {Connection, r, RConnectionOptions, RDatum} from 'rethinkdb-ts';
 import * as databaseConfiguration from './../configuration/database-config.json';
-import {Admin} from "../../models/admin.model";
-import {Contact} from "../../models/entry.model";
 import { User } from '../../../Shared/user.model';
 import { Light } from '../../../Shared/light.model';
 import { Temperature } from '../../../Shared/temperature.model';
@@ -289,6 +287,23 @@ export class DatabaseService {
         });
     }
 
+    public getAllLogs(): Promise<Array<Log>> {
+        return new Promise((resolve, reject) => {
+            this.connect().then((connection: Connection) => {
+                r.db(databaseConfiguration.databaseName)
+                    .table('logTable')
+                    .filter({})
+                    .run(connection)
+                    .then((response: Array<Log>) => {
+                        resolve(response);
+                    })
+                    .catch((error) => {
+                        this.loggerService.error(error, 'Error while retrieving entries');
+                    });
+            });
+        });
+    }
+
     // ------------------- Edit ----------------------
 
     public editLight(light: Light) {
@@ -358,4 +373,6 @@ export class DatabaseService {
             });
         });
     }
+
+
 }

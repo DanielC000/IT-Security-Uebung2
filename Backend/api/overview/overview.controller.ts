@@ -67,6 +67,7 @@ export class OverviewController implements interfaces.Controller {
         this.databaseService.editLight(request.body.light)
             .then(() => {
                 response.status(200).send();
+                this.databaseService.insertNewLog
             })
             .catch(error => {
                 response.status(500).send(error);
