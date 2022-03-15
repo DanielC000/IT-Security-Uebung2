@@ -108,7 +108,7 @@ export class DatabaseService {
                 r.db(databaseConfiguration.databaseName)
                 r.table("userAdminTable")
                     .insert({
-                        usernamename: user.username,
+                        username: user.username,
                         password: user.password,
                         admin: user.admin,
                     })
