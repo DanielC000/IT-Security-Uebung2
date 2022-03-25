@@ -1,0 +1,65 @@
+.table-container {
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+}
+
+.row-is-clicked {
+  background-color: gray;
+}
+
+.table-information-row-container {
+  display: flex;
+  margin: auto;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  padding-left: 1em;
+  padding-right: 1em;
+  align-items:center;
+  justify-content:center;
+}
+
+.spacer {
+  // Don't forget: Parent needs to have display: flex;
+  flex-grow: 1;
+}
+
+.table-information-text {
+  font-size: smaller;
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+.form-field {
+  display: inline-block;
+}
+
+.go-to-page-input {
+  width: 8em;
+}
+
+.rows-per-page-selector {
+  width: 6em;
+}
+
+.center-aligned-header,
+.center-aligned-content,
+.left-aligned-header,
+.left-aligned-content {
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+
+.center-aligned-header,
+.center-aligned-content {
+  text-align: center !important;
+  vertical-align: middle !important;
+}
+
+.left-aligned-header,
+.left-aligned-content {
+  text-align: left !important;
+  vertical-align: middle !important;
+}

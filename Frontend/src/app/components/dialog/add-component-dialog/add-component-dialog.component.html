@@ -1,0 +1,39 @@
+<h1>Add a new component</h1>
+<div mat-dialog-content *ngIf="this.data == 'window' || this.data == 'light'">
+  <form (ngSubmit)="onSubmit()" name="addComponentForm" [formGroup]="addComponentForm">
+    <mat-form-field class="full-width" appearance="standard">
+      <mat-label>Name</mat-label>
+      <input
+        formControlName="name"
+        matInput
+        placeholder="Name" required/>
+    </mat-form-field>
+    <mat-form-field class="full-width" appearance="standard">
+    <mat-label>Room</mat-label>
+    <input
+      formControlName="room"
+      matInput
+      placeholder="Room" required/>
+    </mat-form-field>
+    <button mat-button>Create</button>
+  </form>
+</div>
+<div mat-dialog-content *ngIf="this.data == 'temperature'">
+  <form (ngSubmit)="onSubmit()" name="addComponentForm" [formGroup]="addComponentForm">
+    <mat-form-field class="full-width" appearance="standard">
+      <mat-label>Room</mat-label>
+      <input
+        formControlName="room"
+        matInput
+        placeholder="Room" required/>
+    </mat-form-field>
+    <mat-form-field class="full-width" appearance="standard">
+      <mat-label>Target Temperature</mat-label>
+      <input
+        formControlName="targetTemp"
+        matInput
+        placeholder="Target Temperature" required/>
+    </mat-form-field>
+    <button mat-button>Create</button>
+  </form>
+</div>

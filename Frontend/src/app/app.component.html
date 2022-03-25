@@ -27,6 +27,14 @@
       <mat-icon>home</mat-icon>
       <span>Home</span>
     </button>
+    <button mat-button class="menu-button" routerLink="/overview">
+      <mat-icon>Overview</mat-icon>
+      <span>Overview</span>
+    </button>
+    <button mat-button class="menu-button" routerLink="/configuration">
+      <mat-icon>Configuration</mat-icon>
+      <span>Configuration</span>
+    </button>
     <mat-divider></mat-divider>
     <button mat-button class="menu-button" routerLink="/login" *ngIf="!tokenStorage.getUser()">
       <mat-icon>login</mat-icon>
@@ -37,12 +45,6 @@
       <mat-icon>logout</mat-icon>
       <span>LogOut</span>
     </button>
-    <button mat-button class="menu-button" routerLink="/overview">
-      <mat-icon>Overview</mat-icon>
-      <span>Overview</span>
-    </button>
-    <mat-divider></mat-divider>
-
     <button mat-button class="menu-button" routerLink="/about">
       <mat-icon>info</mat-icon>
       <span>About</span>

@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NotFoundComponent} from './components/not-found/not-found.component';
@@ -17,7 +16,6 @@ import {MatCardModule} from "@angular/material/card";
 import {MatInputModule} from "@angular/material/input";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {MatSelectModule} from "@angular/material/select";
-import {AuthenticationService} from "./services/authentication/authentication.service";
 import {HttpClientModule} from "@angular/common/http";
 import {MatTableModule} from "@angular/material/table";
 import {NativeObjectService} from "./services/native-object.service";
@@ -25,15 +23,12 @@ import {QRCodeModule} from "angularx-qrcode";
 import {MatSortModule} from "@angular/material/sort";
 import {QuestionDialogComponent} from './components/dialog/question-dialog/question-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
-import {EditContactDialogComponent} from './components/dialog/edit-contact-dialog/edit-contact-dialog.component';
-import {AdminAccountComponent} from './components/admin-account/admin-account.component';
-import {
-  ChangePasswordDialogComponent
-} from './components/dialog/change-password-dialog/change-password-dialog.component';
 import {AboutComponent} from './components/about/about.component';
 import {ConfirmationDialogComponent} from './components/dialog/confirmation-dialog/confirmation-dialog.component';
 import { OverviewComponent } from './components/overview/overview.component';
 import {authInterceptorProviders} from "./helpers/interceptor/auth.interceptor";
+import { ConfigurationComponent } from './components/configuration/configuration.component';
+import { AddComponentDialogComponent } from './components/dialog/add-component-dialog/add-component-dialog.component';
 
 @NgModule({
   declarations: [
@@ -42,12 +37,11 @@ import {authInterceptorProviders} from "./helpers/interceptor/auth.interceptor";
     HomeComponent,
     LoginComponent,
     QuestionDialogComponent,
-    EditContactDialogComponent,
-    AdminAccountComponent,
-    ChangePasswordDialogComponent,
     AboutComponent,
     ConfirmationDialogComponent,
-    OverviewComponent
+    OverviewComponent,
+    ConfigurationComponent,
+    AddComponentDialogComponent
   ],
   imports: [
     BrowserModule,
