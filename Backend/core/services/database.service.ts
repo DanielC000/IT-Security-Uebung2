@@ -2,8 +2,11 @@ import {inject, injectable} from 'inversify';
 import {LoggerService} from './logger.service';
 import {Connection, r, RConnectionOptions, RDatum} from 'rethinkdb-ts';
 import * as databaseConfiguration from './../configuration/database-config.json';
-import {Admin} from "../../models/admin.model";
-import {Contact} from "../../models/entry.model";
+import { User } from '../../../Shared/user.model';
+import { Light } from '../../../Shared/light.model';
+import { Temperature } from '../../../Shared/temperature.model';
+import { WindowModel } from '../../../Shared/window.model';
+import { Log } from '../../../Shared/log.model';
 
 
 @injectable()
@@ -39,24 +42,6 @@ export class DatabaseService {
             });
         return Promise.resolve(true);
     }
-
-    public getAllAdmins(): Promise<Array<Admin>> {
-        return new Promise((resolve, reject) => {
-            this.connect().then((connection: Connection) => {
-                r.db(databaseConfiguration.databaseName)
-                    .table('adminTable')
-                    .filter({})
-                    .run(connection)
-                    .then((response: Array<Admin>) => {
-                        resolve(response);
-                    })
-                    .catch((error) => {
-                        this.loggerService.error(error, 'Error while retrieving entries');
-                    });
-            });
-        });
-    }
-
 
     private createTables(connection: Connection): Promise<boolean> {
         return new Promise((resolve, reject) => {
@@ -114,17 +99,82 @@ export class DatabaseService {
                 .catch(reject);
         });
     }
-
-    public insertNewAdmin(admin: Admin): Promise<boolean> {
+    // --------- Remove --------------------
+    removeWindow(id: String)
+    {
         return new Promise((resolve, reject) => {
             this.connect().then((connection: Connection) => {
                 r.db(databaseConfiguration.databaseName)
-                r.table("adminTable")
+                    .table('windowTable')
+                    .get(id)
+                    .delete()
+                    .run(connection)
+                    .then(() => {
+                        this.loggerService.info('successfully edited entry.');
+                        resolve('entry edited.');
+                    })
+                    .catch(error => {
+                        this.loggerService.error('failed editing entry.');
+                        reject(error);
+                    });
+            });
+        });
+    }
+
+    removeTemperature(id: String)
+    {
+        return new Promise((resolve, reject) => {
+            this.connect().then((connection: Connection) => {
+                r.db(databaseConfiguration.databaseName)
+                    .table('temperatureTable')
+                    .get(id)
+                    .delete()
+                    .run(connection)
+                    .then(() => {
+                        this.loggerService.info('successfully edited entry.');
+                        resolve('entry edited.');
+                    })
+                    .catch(error => {
+                        this.loggerService.error('failed editing entry.');
+                        reject(error);
+                    });
+            });
+        });
+    }
+
+    removeLight(id: String)
+    {
+        return new Promise((resolve, reject) => {
+            this.connect().then((connection: Connection) => {
+                r.db(databaseConfiguration.databaseName)
+                    .table('lightTable')
+                    .get(id)
+                    .delete()
+                    .run(connection)
+                    .then(() => {
+                        this.loggerService.info('successfully edited entry.');
+                        resolve('entry edited.');
+                    })
+                    .catch(error => {
+                        this.loggerService.error('failed editing entry.');
+                        reject(error);
+                    });
+            });
+        });
+    }
+
+
+    // --------- Create ---------------------
+
+    insertUser(user: User) {
+        return new Promise((resolve, reject) => {
+            this.connect().then((connection: Connection) => {
+                r.db(databaseConfiguration.databaseName)
+                r.table("userAdminTable")
                     .insert({
-                        username: admin.username,
-                        password: admin.password,
-                        email: admin.email,
-                        profileImg: admin.profileImg,
+                        username: user.username,
+                        password: user.password,
+                        role: user.role,
                     })
                     .run(connection)
                     .then(function (response) {
@@ -139,18 +189,16 @@ export class DatabaseService {
         })
     }
 
-    insertNewContact(contact: Contact) {
+
+    insertNewLight(light: Light) {
         return new Promise((resolve, reject) => {
             this.connect().then((connection: Connection) => {
                 r.db(databaseConfiguration.databaseName)
-                r.table("contactTracingTable")
+                r.table("lightTable")
                     .insert({
-                        name: contact.name,
-                        street: contact.street,
-                        city: contact.city,
-                        zipCode: contact.zipCode,
-                        state: contact.state,
-                        country: contact.country,
+                        name: light.name,
+                        on: light.on,
+                        room: light.room
                     })
                     .run(connection)
                     .then(function (response) {
@@ -165,14 +213,85 @@ export class DatabaseService {
         })
     }
 
-    public getAllContacts(): Promise<Array<Contact>> {
+    insertNewWindow(window: WindowModel) {
         return new Promise((resolve, reject) => {
             this.connect().then((connection: Connection) => {
                 r.db(databaseConfiguration.databaseName)
-                    .table('contactTracingTable')
+                r.table("windowTable")
+                    .insert({
+                        name: window.name,
+                        room: window.room,
+                        isOpen: window.isOpen,
+                    })
+                    .run(connection)
+                    .then(function (response) {
+                        console.log('Success ', response);
+                        resolve(true);
+                    })
+                    .catch((error) => {
+                        this.loggerService.error(error, 'Error while inserting new entries');
+                        reject(false);
+                    });
+            });
+        })
+    }
+
+    insertNewTemperature(temperature: Temperature) {
+        return new Promise((resolve, reject) => {
+            this.connect().then((connection: Connection) => {
+                r.db(databaseConfiguration.databaseName)
+                r.table("temperatureTable")
+                    .insert({
+                        room: temperature.room,
+                        actualTemperature: temperature.actualTemperature,
+                        targetTemperature: temperature.targetTemperature,
+                    })
+                    .run(connection)
+                    .then(function (response) {
+                        console.log('Success ', response);
+                        resolve(true);
+                    })
+                    .catch((error) => {
+                        this.loggerService.error(error, 'Error while inserting new entries');
+                        reject(false);
+                    });
+            });
+        })
+    }
+
+    insertNewLog(log: Log) {
+        return new Promise((resolve, reject) => {
+            this.connect().then((connection: Connection) => {
+                r.db(databaseConfiguration.databaseName)
+                r.table("logTable")
+                    .insert({
+                        date: log.date,
+                        username: log.username,
+                        message: log.message
+                    })
+                    .run(connection)
+                    .then(function (response) {
+                        console.log('Success ', response);
+                        resolve(true);
+                    })
+                    .catch((error) => {
+                        this.loggerService.error(error, 'Error while inserting new entries');
+                        reject(false);
+                    });
+            });
+        })
+    }
+
+    // ----------Get--------------
+
+    public getAllUsers(): Promise<Array<User>> {
+        return new Promise((resolve, reject) => {
+            this.connect().then((connection: Connection) => {
+                r.db(databaseConfiguration.databaseName)
+                    .table('userAdminTable')
                     .filter({})
                     .run(connection)
-                    .then((response: Array<Contact>) => {
+                    .then((response: Array<User>) => {
                         resolve(response);
                     })
                     .catch((error) => {
@@ -182,47 +301,84 @@ export class DatabaseService {
         });
     }
 
-    deleteContact(id: string) {
+    public getAllLights(): Promise<Array<Light>> {
         return new Promise((resolve, reject) => {
             this.connect().then((connection: Connection) => {
                 r.db(databaseConfiguration.databaseName)
-                    .table('contactTracingTable')
-                    .get(id)
-                    .delete()
+                    .table('lightTable')
+                    .filter({})
                     .run(connection)
-                    .then(
-                        () => {
-                            this.loggerService.info('if existing, deleted user with id:' + id);
-                            resolve('entry deleted');
-                        }
-                    )
-                    .catch(
-                        (error) => {
-                            this.loggerService.error('failed deleting user:' + id);
-                            this.loggerService.error(error);
-                            reject(error);
-                        }
-                    )
-
+                    .then((response: Array<Light>) => {
+                        resolve(response);
+                    })
+                    .catch((error) => {
+                        this.loggerService.error(error, 'Error while retrieving entries');
+                    });
             });
         });
-
-
     }
 
-    editContact(contact: Contact) {
+    public getAllWindows(): Promise<Array<WindowModel>> {
         return new Promise((resolve, reject) => {
             this.connect().then((connection: Connection) => {
                 r.db(databaseConfiguration.databaseName)
-                    .table('contactTracingTable')
-                    .get(contact.id)
+                    .table('windowTable')
+                    .filter({})
+                    .run(connection)
+                    .then((response: Array<WindowModel>) => {
+                        resolve(response);
+                    })
+                    .catch((error) => {
+                        this.loggerService.error(error, 'Error while retrieving entries');
+                    });
+            });
+        });
+    }
+
+    public getAllTemperatures(): Promise<Array<Temperature>> {
+        return new Promise((resolve, reject) => {
+            this.connect().then((connection: Connection) => {
+                r.db(databaseConfiguration.databaseName)
+                    .table('temperatureTable')
+                    .filter({})
+                    .run(connection)
+                    .then((response: Array<Temperature>) => {
+                        resolve(response);
+                    })
+                    .catch((error) => {
+                        this.loggerService.error(error, 'Error while retrieving entries');
+                    });
+            });
+        });
+    }
+
+    public getAllLogs(): Promise<Array<Log>> {
+        return new Promise((resolve, reject) => {
+            this.connect().then((connection: Connection) => {
+                r.db(databaseConfiguration.databaseName)
+                    .table('logTable')
+                    .filter({})
+                    .run(connection)
+                    .then((response: Array<Log>) => {
+                        resolve(response);
+                    })
+                    .catch((error) => {
+                        this.loggerService.error(error, 'Error while retrieving entries');
+                    });
+            });
+        });
+    }
+
+    // ------------------- Edit ----------------------
+
+    public changeUsername(id: String, newName: String) {
+        return new Promise((resolve, reject) => {
+            this.connect().then((connection: Connection) => {
+                r.db(databaseConfiguration.databaseName)
+                    .table('userAdminTable')
+                    .get(id)
                     .update({
-                        name: contact.name,
-                        street: contact.street,
-                        city: contact.city,
-                        zipCode: contact.zipCode,
-                        state: contact.state,
-                        country: contact.country,
+                        username: newName,
                     }).run(connection)
                     .then(() => {
                         this.loggerService.info('successfully edited entry.');
@@ -236,132 +392,76 @@ export class DatabaseService {
         });
     }
 
-    editAdmin(id: string, username: string, email: string, profileImg: string) {
+    public toggleLight(id: String) {
         return new Promise((resolve, reject) => {
             this.connect().then((connection: Connection) => {
                 r.db(databaseConfiguration.databaseName)
-                    .table('adminTable')
+                    .table('lightTable')
                     .get(id)
-                    .update({
-                        username: username,
-                        email: email,
-                        profileImg: profileImg,
+                    .update(function(post) {
+                        return r.branch(
+                            post("on").eq(true),
+                            {on: false},
+                            {on: true}
+                        )
                     }).run(connection)
                     .then(() => {
-                        this.loggerService.info('successfully edited admin.');
-                        resolve('admin edited.');
+                        this.loggerService.info('successfully edited entry.');
+                        resolve('entry edited.');
                     })
                     .catch(error => {
-                        this.loggerService.error('failed editing admin.');
+                        this.loggerService.error('failed editing entry.');
                         reject(error);
                     });
-            })
-        })
+            });
+        });
     }
 
-    getAdminWithId(id: string): Promise<Admin> {
-        return new Promise((resolve, reject) => {
-            this.connect()
-                .then((connection: Connection) => {
-                    r.db(databaseConfiguration.databaseName)
-                        .table('adminTable')
-                        .get(id)
-                        .run(connection)
-                        .then((admin: Admin) => {
-                            this.loggerService.info('found admin');
-                            resolve(admin);
-                        })
-                        .catch(error => {
-                            this.loggerService.error('could not fetch admin');
-                            reject(null);
-                        })
-                })
-                .catch(error => {
-                    this.loggerService.error('could not create connection to db.')
-                    this.loggerService.error(error);
-                    reject(null);
-                })
-        })
-    }
-
-    changeAdminPassword(newPassword: string, id: string) {
+    public toggleWindow(id: String) {
         return new Promise((resolve, reject) => {
             this.connect().then((connection: Connection) => {
                 r.db(databaseConfiguration.databaseName)
-                    .table('adminTable')
+                    .table('windowTable')
                     .get(id)
-                    .update({
-                        password: newPassword
+                    .update(function(post) {
+                        return r.branch(
+                            post("isOpen").eq(true),
+                            {isOpen: false},
+                            {isOpen: true}
+                        )
                     }).run(connection)
                     .then(() => {
-                        this.loggerService.info('successfully updated admin password.');
-                        resolve('admin password changed.');
+                        this.loggerService.info('successfully edited entry.');
+                        resolve('entry edited.');
                     })
                     .catch(error => {
-                        this.loggerService.error('failed editing admin.');
+                        this.loggerService.error('failed editing entry.');
                         reject(error);
                     });
-            })
-        })
+            });
+        });
     }
 
-    checkInUser(firstName: string, lastName: string, timeNow: string, dateNow: string, code: string) {
+    public changeTargetTemperature(id: String, targetTemperature: Number) {
         return new Promise((resolve, reject) => {
             this.connect().then((connection: Connection) => {
                 r.db(databaseConfiguration.databaseName)
-                    .table('userChecks')
-                    .insert({
-                        firstName: firstName,
-                        lastName: lastName,
-                        checkInTime: timeNow,
-                        checkInDate: dateNow,
-                        checkOutTime: "",
-                        checkOutDate: "",
-                        code: code
-                    })
-                    .run(connection)
-                    .then(() => {
-                        this.loggerService.info('successfully checked in user:' + code);
-                        resolve(code);
-                    })
-                    .catch(error => {
-                        this.loggerService.error('failed checking user in:' + code);
-                        this.loggerService.error(error);
-                        reject('failed checking user in');
-                    })
-
-            })
-                .catch(error => {
-                    this.loggerService.error(error);
-                    this.loggerService.error('failed connecting to DB for check in of:' + code);
-                })
-        })
-    }
-
-    checkOutUser(code: string, time: string, date: string) {
-        return new Promise((resolve, reject) => {
-            this.connect().then((connection: Connection) => {
-                r.db(databaseConfiguration.databaseName)
-                    .table('userChecks')
-                    .filter({
-                        "code": code
-                    })
+                    .table('temperatureTable')
+                    .get(id)
                     .update({
-                        checkOutTime: time,
-                        checkOutDate: date
-                    })
-                    .run(connection)
+                        targetTemperature: targetTemperature,
+                    }).run(connection)
                     .then(() => {
-                        this.loggerService.info('successfully checked out user:' + code);
-                        resolve('checked out user successfully');
+                        this.loggerService.info('successfully edited entry.');
+                        resolve('entry edited.');
                     })
                     .catch(error => {
-                        this.loggerService.info('successfully checked out user:' + code);
-                        this.loggerService.info(error);
+                        this.loggerService.error('failed editing entry.');
                         reject(error);
-                    })
-            })
-        })
-
+                    });
+            });
+        });
     }
+
+
 }

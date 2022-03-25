@@ -1,0 +1,63 @@
+.login-wrapper {
+  width: calc(100vw - 265px);
+  height: calc(100vh - 200px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-shadow {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: #e2e2e2;
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
+}
+
+mat-card {
+  position: relative;
+  opacity: 1;
+  max-width: 600px;
+  width: 500px;
+  text-align: center;
+  max-height: 600px;
+  padding: 60px 50px 40px 50px;
+  background: #fff;
+  border-radius: 5px;
+  transform: scale(1);
+}
+
+.full-width {
+  width: 80%;
+}
+
+.login-button {
+  margin-top: 40px;
+}
+
+.button-row {
+  padding-top: 20px;
+}
+
+.button-row a {
+  padding-top: 20px;
+  margin-right: 8px;
+  text-align: center;
+}
+
+.username-Input {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.password-Input {
+  padding-top: 20px;
+}
+
+.login-input {
+  padding: 60px 1rem;
+  background: darkgray;
+  display: block;
+}
+
+mat-label {
+  padding-bottom: 50px;
+}

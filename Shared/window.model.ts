@@ -1,12 +1,14 @@
-export class Window {
+export class WindowModel {
 
+    name: string;
     id: string;
     room: string;
-    open: boolean;
+    isOpen: boolean;
 
-    constructor(room: string, open: boolean, id: string) {
+    constructor(room: string, isOpen: boolean, id: string, name: string) {
         this.room = room;
-        this.open = open;
+        this.isOpen = isOpen;
+        this.name = name;
         this.id = id;
     }
 }

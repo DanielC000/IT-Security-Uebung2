@@ -3,8 +3,11 @@ import {Container} from 'inversify';
 import {interfaces, TYPE} from 'inversify-express-utils';
 import {LoggerService} from '../services/logger.service';
 import {DatabaseService} from '../services/database.service';
-import {UserController} from '../../api/user/user.controller';
-import {AdminController} from "../../api/admin/admin.controller";
+import {LoginController} from '../../api/login/login.controller';
+import {ConfigurationDeviceUserController} from "../../api/config/ConfigurationDeviceUser.controller";
+import {OverviewController} from "../../api/overview/overview.controller";
+import { UserLogsController } from '../../api/userlog/userlog.controller';
+
 
 export class IoContainer {
     private container = new Container();
@@ -20,11 +23,17 @@ export class IoContainer {
 
     private initController(): void {
         this.container.bind<interfaces.Controller>(TYPE.Controller)
-            .to(UserController)
-            .whenTargetNamed(UserController.name);
+            .to(LoginController)
+            .whenTargetNamed(LoginController.name);
         this.container.bind<interfaces.Controller>(TYPE.Controller)
-            .to(AdminController)
-            .whenTargetNamed(AdminController.name);
+            .to(OverviewController)
+            .whenTargetNamed(OverviewController.name);
+        this.container.bind<interfaces.Controller>(TYPE.Controller)
+            .to(ConfigurationDeviceUserController)
+            .whenTargetNamed(ConfigurationDeviceUserController.name);
+        this.container.bind<interfaces.Controller>(TYPE.Controller)
+            .to(UserLogsController)
+            .whenTargetNamed(UserLogsController.name);
     }
 
     private initServices(): void {

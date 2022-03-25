@@ -1,0 +1,140 @@
+<div>
+  <button mat-button color="secondary" (click)="addNewWindowDevice()">Add new Window Device</button>
+  <button mat-button color="secondary" (click)="addNewTemperature()">Add new Temperature Device</button>
+  <button mat-button color="secondary" (click)="addNewLightingDevice()">Add new Lighting Device</button>
+</div>
+<div class="account-wrapper" *ngIf="!isAdmin">
+  <div class="card-shadow">
+    <mat-card class="card">
+      <mat-card-header>
+        <mat-card-title>Account</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form (ngSubmit)="onSubmit()" name="accountForm" [formGroup]="accountForm">
+          <div class="username-Input">
+            <mat-form-field class="full-width" appearance="standard">
+              <mat-label>Username</mat-label>
+              <input
+                formControlName="username"
+                matInput
+                placeholder="Username" required
+              />
+            </mat-form-field>
+          </div>
+          <button class="buttons" type="button" mat-flat-button color="accent" (click)="onChangePassword()">Change
+            Password
+          </button>
+          <button class="buttons" type="button" mat-flat-button (click)="onBack()">Back</button>
+          <button [disabled]="changeMade()" class="buttons" mat-flat-button color="primary">Save</button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div *ngIf="isAdmin">
+    <table mat-table [dataSource]="lightingDevices">
+      <ng-container matColumnDef="deviceName">
+        <th mat-header-cell *matHeaderCellDef class="left-aligned-header">
+          Name
+        </th>
+        <td mat-cell *matCellDef="let element" class="left-aligned-content">
+          {{element.name}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="room">
+        <th mat-header-cell *matHeaderCellDef class="center-aligned-header">
+          Room
+        </th>
+        <td mat-cell *matCellDef="let element" class="center-aligned-content">
+          {{element.room}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef class="center-aligned-header">
+          Delete
+        </th>
+        <td mat-cell *matCellDef="let element" class="center-aligned-content">
+          <button mat-button color="primary" (click)="deleteLightingDevice(element)">Delete</button>
+        </td>
+      </ng-container>
+
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedLightingColumns"
+      ></tr>
+    </table>
+  </div>
+
+  <div class="table-container">
+    <table mat-table [dataSource]="temperatureDevices">
+      <ng-container matColumnDef="deviceName">
+        <th mat-header-cell *matHeaderCellDef class="left-aligned-header">
+          Name
+        </th>
+        <td mat-cell *matCellDef="let element" class="left-aligned-content">
+          {{element.name}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="room">
+        <th mat-header-cell *matHeaderCellDef class="center-aligned-header">
+          Room
+        </th>
+        <td mat-cell *matCellDef="let element" class="center-aligned-content">
+          {{element.room}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef class="center-aligned-header">
+          Delete
+        </th>
+        <td mat-cell *matCellDef="let element" class="center-aligned-content">
+          <button mat-button color="primary" (click)="deleteTemperatureDevice(element)" >Delete</button>
+        </td>
+      </ng-container>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedTemperatureColumns"
+      ></tr>
+    </table>
+  </div>
+
+  <div class="table-container">
+    <table mat-table [dataSource]="windowDevices">
+      <ng-container matColumnDef="windowName">
+        <th mat-header-cell *matHeaderCellDef class="left-aligned-header">
+          Name
+        </th>
+        <td mat-cell *matCellDef="let element" class="left-aligned-content">
+          {{element.name}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="room">
+        <th mat-header-cell *matHeaderCellDef class="center-aligned-header">
+          Room
+        </th>
+        <td mat-cell *matCellDef="let element" class="center-aligned-content">
+          {{element.room}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef class="center-aligned-header">
+          Delete
+        </th>
+        <td mat-cell *matCellDef="let element" class="center-aligned-content">
+          <button mat-button color="primary" (click)="deleteWindowDevice(element)">Delete</button>
+        </td>
+      </ng-container>
+
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedWindowColumns"
+      ></tr>
+    </table>
+</div>
