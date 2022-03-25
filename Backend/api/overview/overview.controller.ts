@@ -9,9 +9,6 @@ import { WindowModel } from "../../../Shared/window.model";
 import { Log } from "../../../Shared/log.model";
 import { Session } from "../../JWT/session";
 
-
-
-
 @controller('/overview')
 @injectable()
 export class OverviewController implements interfaces.Controller {
@@ -62,42 +59,42 @@ export class OverviewController implements interfaces.Controller {
 
     // ----------------------- Edit, Put ---------------------
 
-    @httpPut('/changelight')
-    public changeLight(request: Request, response: Response): void {
-        this.loggerService.info('received edit entry request');
-        this.databaseService.editLight(request.body.light)
+    @httpPut('/togglelight/:id')
+    public toggleLight(request: Request, response: Response): void {
+        this.loggerService.info('received toggle light request');
+        this.databaseService.toggleLight(request.params.id)
             .then(() => {
-                response.status(200).send();
                 let session: Session = response.locals.session;
-                this.databaseService.insertNewLog(new Log("Changed light from: "+request.body.light.name+ " to " + request.body.light.on, Date.now(),"", session.username))
+                this.databaseService.insertNewLog(new Log("Toggle light from: "+ request.params.id, Date.now(),"", session.username))
+                response.status(200).send();
             })
             .catch(error => {
                 response.status(500).send(error);
             })
     }
 
-    @httpPut('/changetemperature')
-    public changeTemperature(request: Request, response: Response): void {
+    @httpPut('/changeTargetTemperature/:id&:targetTemperature')
+    public changeTargetTemperature(request: Request, response: Response): void {
         this.loggerService.info('received edit entry request');
-        this.databaseService.editTemperature(request.body.temperature)
+        this.databaseService.changeTargetTemperature(request.params.id, request.params.targetTemperature)
             .then(() => {
-                response.status(200).send();
                 let session: Session = response.locals.session;
-                this.databaseService.insertNewLog(new Log("Changed temperature from: "+request.body.temperature.name+ " to " + request.body.temperature.targetTemperature, Date.now(),"", session.username))
+                this.databaseService.insertNewLog(new Log("Changed target temperature from: "+request.params.id+ " to " + request.params.targetTemperature, Date.now(),"", session.username))
+                response.status(200).send();
             })
             .catch(error => {
                 response.status(500).send(error);
             })
     }
 
-    @httpPut('/changewindow')
-    public changeWindow(request: Request, response: Response): void {
-        this.loggerService.info('received edit entry request');
-        this.databaseService.editWindow(request.body.window)
+    @httpPut('/togglewindow/:id')
+    public toggleWindow(request: Request, response: Response): void {
+        this.loggerService.info('received toggle window request');
+        this.databaseService.toggleWindow(request.params.id)
             .then(() => {
-                response.status(200).send();
                 let session: Session = response.locals.session;
-                this.databaseService.insertNewLog(new Log("Changed window "+request.body.window.name+ " to " + request.body.window.open, Date.now(),"", session.username))
+                this.databaseService.insertNewLog(new Log("Toggle window from: "+ request.params.id, Date.now(),"", session.username))
+                response.status(200).send();
             })
             .catch(error => {
                 response.status(500).send(error);

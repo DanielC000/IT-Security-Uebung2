@@ -9,6 +9,7 @@ import { WindowModel } from "../../../Shared/window.model";
 import { Light } from "../../../Shared/light.model";
 import { User } from "../../../Shared/user.model";
 import { Log } from "../../../Shared/log.model";
+import { Session } from "../../JWT/session";
 
 
 
@@ -21,10 +22,122 @@ export class ConfigurationDeviceUserController implements interfaces.Controller 
         @inject(LoggerService.name) private loggerService: LoggerService,
     ) {
     }
+    //-----------User
+    @httpPut('/changeUsername/:newName')
+    public changeUsername(request: Request, response: Response): void {
+        this.loggerService.info('Received get change username request');
+        let session: Session = response.locals.session;
+
+        this.databaseService.changeUsername(session.id, request.params.newName)
+        .then(() => {
+            this.databaseService.insertNewLog(new Log("Username changed from: "+ session.username + " to " + request.params.newName, Date.now(),"", session.username))
+            response.status(200).send();
+        })
+        .catch(error => {
+            response.status(500).send(error);
+        })
+    }
+
+    //-----------Admin
+
+    @httpDelete('/removewindow/:id')
+    public removeWindow(request: Request, response: Response): void {
+        this.loggerService.info('Received get all entries request');
+        let session: Session = response.locals.session;
+
+        this.databaseService.removeWindow(request.params.id)
+        .then(() => {
+            this.databaseService.insertNewLog(new Log("Removed window : "+ request.params.id, Date.now(),"", session.username))
+            response.status(200).send();
+        })
+        .catch(error => {
+            response.status(500).send(error);
+        })
+
+    }
+
+    @httpDelete('/removelight/:id')
+    public removeLight(request: Request, response: Response): void {
+        this.loggerService.info('Received get all entries request');
+        let session: Session = response.locals.session;
+
+        this.databaseService.removeLight(request.params.id)
+        .then(() => {
+            this.databaseService.insertNewLog(new Log("Removed light : "+ request.params.id, Date.now(),"", session.username))
+            response.status(200).send();
+        })
+        .catch(error => {
+            response.status(500).send(error);
+        })
+    }
+
+    @httpDelete('/removetemperature/:id')
+    public removeTemperature(request: Request, response: Response): void {
+        this.loggerService.info('Received get all entries request');
+        let session: Session = response.locals.session;
+
+        this.databaseService.removeTemperature(request.params.id)
+        .then(() => {
+            this.databaseService.insertNewLog(new Log("Removed temperature : "+ request.params.id, Date.now(),"", session.username))
+            response.status(200).send();
+        })
+        .catch(error => {
+            response.status(500).send(error);
+        })
+    }
+
+
+    @httpPost('/addwindow')
+    public insertWindow(request: Request, response: Response): void {
+        this.loggerService.info('Received get all entries request');
+        let session: Session = response.locals.session;
+
+        this.databaseService.insertNewWindow(new WindowModel(request.body.window.room, request.body.window.isOpen, request.body.window.id, request.body.window.name))
+        .then(() => {
+            this.databaseService.insertNewLog(new Log("New window insert : "+ request.body.window.name +"|"+request.body.window.room , Date.now(),"", session.username))
+            response.status(200).send();
+        })
+        .catch(error => {
+            response.status(500).send(error);
+        })
+
+        response.status(200).send();
+    }
+
+    @httpPost('/addlight')
+    public insertLight(request: Request, response: Response): void {
+        this.loggerService.info('Received get all entries request');
+        let session: Session = response.locals.session;
+
+        this.databaseService.insertNewLight(new Light(request.body.light.room, request.body.light.name, request.body.light.on, request.body.light.id))
+        .then(() => {
+            this.databaseService.insertNewLog(new Log("New light insert : "+ request.body.light.name +"|"+request.body.light.room, Date.now(),"", session.username))
+            response.status(200).send();
+        })
+        .catch(error => {
+            response.status(500).send(error);
+        })
+    }
+
+    @httpPost('/addtemperature')
+    public insertTestData(request: Request, response: Response): void {
+        this.loggerService.info('Received get all entries request');
+        let session: Session = response.locals.session;
+
+        this.databaseService.insertNewTemperature(new Temperature(request.body.temperature.room, request.body.temperature.actualTemperature, request.body.temperature.targetTemperature, request.body.temperature.id))
+        .then(() => {
+            this.databaseService.insertNewLog(new Log("New window insert : "+ session.username + " to " + request.params.newName, Date.now(),"", session.username))
+            response.status(200).send();
+        })
+        .catch(error => {
+            response.status(500).send(error);
+        })
+    }
+
 
     @httpGet('/configdata')
-    public getAllLights(request: Request, response: Response): void {
-        this.loggerService.info('Received get all entries request');
+    public getAllConfigdata(request: Request, response: Response): void {
+        this.loggerService.info('Received get all configdata request');
 
         let config = new ConfigDevicesUsers();
         

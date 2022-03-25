@@ -99,6 +99,70 @@ export class DatabaseService {
                 .catch(reject);
         });
     }
+    // --------- Remove --------------------
+    removeWindow(id: String)
+    {
+        return new Promise((resolve, reject) => {
+            this.connect().then((connection: Connection) => {
+                r.db(databaseConfiguration.databaseName)
+                    .table('windowTable')
+                    .get(id)
+                    .delete()
+                    .run(connection)
+                    .then(() => {
+                        this.loggerService.info('successfully edited entry.');
+                        resolve('entry edited.');
+                    })
+                    .catch(error => {
+                        this.loggerService.error('failed editing entry.');
+                        reject(error);
+                    });
+            });
+        });
+    }
+
+    removeTemperature(id: String)
+    {
+        return new Promise((resolve, reject) => {
+            this.connect().then((connection: Connection) => {
+                r.db(databaseConfiguration.databaseName)
+                    .table('temperatureTable')
+                    .get(id)
+                    .delete()
+                    .run(connection)
+                    .then(() => {
+                        this.loggerService.info('successfully edited entry.');
+                        resolve('entry edited.');
+                    })
+                    .catch(error => {
+                        this.loggerService.error('failed editing entry.');
+                        reject(error);
+                    });
+            });
+        });
+    }
+
+    removeLight(id: String)
+    {
+        return new Promise((resolve, reject) => {
+            this.connect().then((connection: Connection) => {
+                r.db(databaseConfiguration.databaseName)
+                    .table('lightTable')
+                    .get(id)
+                    .delete()
+                    .run(connection)
+                    .then(() => {
+                        this.loggerService.info('successfully edited entry.');
+                        resolve('entry edited.');
+                    })
+                    .catch(error => {
+                        this.loggerService.error('failed editing entry.');
+                        reject(error);
+                    });
+            });
+        });
+    }
+
 
     // --------- Create ---------------------
 
@@ -307,16 +371,14 @@ export class DatabaseService {
 
     // ------------------- Edit ----------------------
 
-    public editLight(light: Light) {
+    public changeUsername(id: String, newName: String) {
         return new Promise((resolve, reject) => {
             this.connect().then((connection: Connection) => {
                 r.db(databaseConfiguration.databaseName)
-                    .table('lightTable')
-                    .get(light.id)
+                    .table('userAdminTable')
+                    .get(id)
                     .update({
-                        name: light.name,
-                        on: light.on,
-                        room: light.room
+                        username: newName,
                     }).run(connection)
                     .then(() => {
                         this.loggerService.info('successfully edited entry.');
@@ -330,15 +392,18 @@ export class DatabaseService {
         });
     }
 
-    public editWindow(window: WindowModel) {
+    public toggleLight(id: String) {
         return new Promise((resolve, reject) => {
             this.connect().then((connection: Connection) => {
                 r.db(databaseConfiguration.databaseName)
                     .table('lightTable')
-                    .get(window.id)
-                    .update({
-                        room: window.room,
-                        isOpen: window.isOpen,
+                    .get(id)
+                    .update(function(post) {
+                        return r.branch(
+                            post("on").eq(true),
+                            {on: false},
+                            {on: true}
+                        )
                     }).run(connection)
                     .then(() => {
                         this.loggerService.info('successfully edited entry.');
@@ -352,16 +417,39 @@ export class DatabaseService {
         });
     }
 
-    public editTemperature(temperature: Temperature) {
+    public toggleWindow(id: String) {
         return new Promise((resolve, reject) => {
             this.connect().then((connection: Connection) => {
                 r.db(databaseConfiguration.databaseName)
-                    .table('lightTable')
-                    .get(temperature.id)
+                    .table('windowTable')
+                    .get(id)
+                    .update(function(post) {
+                        return r.branch(
+                            post("isOpen").eq(true),
+                            {isOpen: false},
+                            {isOpen: true}
+                        )
+                    }).run(connection)
+                    .then(() => {
+                        this.loggerService.info('successfully edited entry.');
+                        resolve('entry edited.');
+                    })
+                    .catch(error => {
+                        this.loggerService.error('failed editing entry.');
+                        reject(error);
+                    });
+            });
+        });
+    }
+
+    public changeTargetTemperature(id: String, targetTemperature: Number) {
+        return new Promise((resolve, reject) => {
+            this.connect().then((connection: Connection) => {
+                r.db(databaseConfiguration.databaseName)
+                    .table('temperatureTable')
+                    .get(id)
                     .update({
-                        room: temperature.room,
-                        actualTemperature: temperature.actualTemperature,
-                        targetTemperature: temperature.targetTemperature,
+                        targetTemperature: targetTemperature,
                     }).run(connection)
                     .then(() => {
                         this.loggerService.info('successfully edited entry.');
