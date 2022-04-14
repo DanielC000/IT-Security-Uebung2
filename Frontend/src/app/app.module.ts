@@ -29,6 +29,7 @@ import { OverviewComponent } from './components/overview/overview.component';
 import {authInterceptorProviders} from "./helpers/interceptor/auth.interceptor";
 import { ConfigurationComponent } from './components/configuration/configuration.component';
 import { AddComponentDialogComponent } from './components/dialog/add-component-dialog/add-component-dialog.component';
+import { HistoryComponent } from './components/history/history.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { AddComponentDialogComponent } from './components/dialog/add-component-d
     ConfirmationDialogComponent,
     OverviewComponent,
     ConfigurationComponent,
-    AddComponentDialogComponent
+    AddComponentDialogComponent,
+    HistoryComponent
   ],
   imports: [
     BrowserModule,

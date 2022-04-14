@@ -164,6 +164,7 @@ export class ConfigurationComponent implements OnInit {
       }
     });
   }
+
   addNewTemperature() {
     const dialogRef = this.dialog.open(AddComponentDialogComponent, {
       data: 'temperature'
@@ -188,6 +189,7 @@ export class ConfigurationComponent implements OnInit {
       }
     });
   }
+
   deleteLightingDevice(element: Light) {
     this.deviceService.deleteLightDevice(element.id).subscribe({
       next: value => {
