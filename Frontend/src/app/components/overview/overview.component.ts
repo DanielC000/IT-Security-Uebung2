@@ -75,13 +75,12 @@ export class OverviewComponent implements OnInit {
   }
 
   toggleLightActivationStatus(element: Light) {
-    this.deviceService.toggleLight(element.id).subscribe({
+    this.deviceService.toggleLight(element).subscribe({
     next: value => {
       console.log(value);
       this.getLightingDevices();
     },
       error: err => {
-        this.getLightingDevices();
         console.log(err);
       }
     })
@@ -101,7 +100,7 @@ export class OverviewComponent implements OnInit {
   }
 
   toggleWindowActivationStatus(element: WindowModel) {
-    this.deviceService.toggleWindow(element.id).subscribe({
+    this.deviceService.toggleWindow(element).subscribe({
       next: value => {
         console.log(value);
         this.getWindowDevices();

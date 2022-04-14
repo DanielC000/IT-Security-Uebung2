@@ -1,0 +1,38 @@
+.table-wrapper {
+  justify-content: center;
+  align-items: flex-start;
+}
+
+table {
+  width: 150%;
+}
+
+.buttons-wrapper {
+  display: inline-flex;
+  flex-wrap: wrap;
+
+}
+
+tr.detail-row {
+  height: 0;
+}
+
+tr.element-row:not(.expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.element-row:not(.expanded-row):active {
+  background: #efefef;
+}
+
+.element-row td {
+  border-bottom-width: 0;
+}
+
+.element-detail {
+  overflow: hidden;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
