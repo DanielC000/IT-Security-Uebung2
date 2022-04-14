@@ -29,6 +29,8 @@ server.setConfig((app) => {
 
     app.use("/overview", requireJwtMiddleware);
     app.use("/configuration", requireJwtMiddleware);
+    app.use("/userlogs", requireJwtMiddleware);
+
 });
 
 databaseService.initialize().then(()=>{

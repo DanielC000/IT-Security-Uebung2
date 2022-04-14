@@ -62,11 +62,13 @@ export class OverviewController implements interfaces.Controller {
     @httpPut('/togglelight')
     public toggleLight(request: Request, response: Response): void {
         this.loggerService.info('received toggle light request');
+        let session: Session = response.locals.session;
+        
+        this.databaseService.insertNewLog(new Log("Toggle light in room: "+ request.body.room + " | "+request.body.name , "","", session.username));
+
         this.databaseService.toggleLight(request.body.id)
             .then(() => {
-                let session: Session = response.locals.session;
-                var today  = new Date();
-                this.databaseService.insertNewLog(new Log("Toggle light in room: "+ request.body.room + " | "+request.body.name , "","", session.username))
+
                 response.status(200).send();
             })
             .catch(error => {
