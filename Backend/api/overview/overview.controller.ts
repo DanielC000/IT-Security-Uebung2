@@ -59,13 +59,14 @@ export class OverviewController implements interfaces.Controller {
 
     // ----------------------- Edit, Put ---------------------
 
-    @httpPut('/togglelight/:id')
+    @httpPut('/togglelight')
     public toggleLight(request: Request, response: Response): void {
         this.loggerService.info('received toggle light request');
-        this.databaseService.toggleLight(request.params.id)
+        this.databaseService.toggleLight(request.body.id)
             .then(() => {
                 let session: Session = response.locals.session;
-                this.databaseService.insertNewLog(new Log("Toggle light from: "+ request.params.id, Date.now(),"", session.username))
+                var today  = new Date();
+                this.databaseService.insertNewLog(new Log("Toggle light from: "+ request.body.name + "|"+request.body.room , "","", session.username))
                 response.status(200).send();
             })
             .catch(error => {
@@ -73,13 +74,14 @@ export class OverviewController implements interfaces.Controller {
             })
     }
 
-    @httpPut('/changeTargetTemperature/:id&:targetTemperature')
+    @httpPut('/changeTargetTemperature')
     public changeTargetTemperature(request: Request, response: Response): void {
         this.loggerService.info('received edit entry request');
-        this.databaseService.changeTargetTemperature(request.params.id, request.params.targetTemperature)
+        
+        this.databaseService.changeTargetTemperature(request.body.id, request.body.targetTemperature)
             .then(() => {
                 let session: Session = response.locals.session;
-                this.databaseService.insertNewLog(new Log("Changed target temperature from: "+request.params.id+ " to " + request.params.targetTemperature, Date.now(),"", session.username))
+                this.databaseService.insertNewLog(new Log("Changed target temperature from: "+request.body.name+ " to " + request.params.targetTemperature, "","", session.username))
                 response.status(200).send();
             })
             .catch(error => {
@@ -87,13 +89,13 @@ export class OverviewController implements interfaces.Controller {
             })
     }
 
-    @httpPut('/togglewindow/:id')
+    @httpPut('/togglewindow')
     public toggleWindow(request: Request, response: Response): void {
         this.loggerService.info('received toggle window request');
-        this.databaseService.toggleWindow(request.params.id)
+        this.databaseService.toggleWindow(request.body.id)
             .then(() => {
                 let session: Session = response.locals.session;
-                this.databaseService.insertNewLog(new Log("Toggle window from: "+ request.params.id, Date.now(),"", session.username))
+                this.databaseService.insertNewLog(new Log("Toggle window from: "+ request.body.name, "","", session.username))
                 response.status(200).send();
             })
             .catch(error => {

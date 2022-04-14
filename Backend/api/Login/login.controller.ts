@@ -64,7 +64,7 @@ export class LoginController implements interfaces.Controller {
         this.databaseService.insertNewLight(new Light("Vorzimmer", "Raumlicht", false, ""));
         this.databaseService.insertNewLight(new Light("Badezimmer", "Hintergrundbeleuchtung", true, ""));
 
-        this.databaseService.insertNewLog(new Log("Upload test data success", Date.now(),"","SuperAdmin"))
+        this.databaseService.insertNewLog(new Log("Upload test data success", "","","SuperAdmin"))
 
         this.databaseService.insertUser(new User("Superuser","changeme","",["Admin","User"],""));
         this.databaseService.insertUser(new User("User","changeme","",["User"],""));
