@@ -123,8 +123,10 @@ export class ConfigurationDeviceUserController implements interfaces.Controller 
     public insertTestData(request: Request, response: Response): void {
         this.loggerService.info('Received get all entries request');
         let session: Session = response.locals.session;
+        this.loggerService.info(request.body);
 
-        this.databaseService.insertNewTemperature(new Temperature(request.body.temperature.room, request.body.temperature.actualTemperature, request.body.temperature.targetTemperature, request.body.temperature.id))
+
+        this.databaseService.insertNewTemperature(new Temperature(request.body.Temperature.room, request.body.Temperature.actualTemperature, request.body.Temperature.targetTemperature, request.body.Temperature.id))
         .then(() => {
             this.databaseService.insertNewLog(new Log("New window insert : "+ session.username + " to " + request.params.newName, Date.now(),"", session.username))
             response.status(200).send();
