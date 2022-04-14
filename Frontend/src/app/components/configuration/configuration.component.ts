@@ -11,6 +11,8 @@ import {WindowModel} from "../../../../../Shared/window.model";
 import {DevicesService} from "../../services/devices/devices.service";
 import {MatDialog} from "@angular/material/dialog";
 import {AddComponentDialogComponent} from "../dialog/add-component-dialog/add-component-dialog.component";
+import {UserService} from "../../services/user/user.service";
+import {ConfirmationDialogComponent} from "../dialog/confirmation-dialog/confirmation-dialog.component";
 
 @Component({
   selector: 'app-configuration',
@@ -35,6 +37,7 @@ export class ConfigurationComponent implements OnInit {
 
   constructor(private loggerService: LoggerService,
               private deviceService: DevicesService,
+              private userService: UserService,
               private accountFormBuilder: FormBuilder,
               private tokenStorage: TokenStorageService,
               private route: ActivatedRoute,
@@ -67,7 +70,7 @@ export class ConfigurationComponent implements OnInit {
     this.getWindowDevices();
 
     this.accountForm = this.accountFormBuilder.group({
-      username: [this.user.username, [Validators.minLength(6)]]
+      username: [this.user.username]
     })
   }
 
@@ -75,6 +78,23 @@ export class ConfigurationComponent implements OnInit {
     if (this.accountForm.invalid) {
       return;
     }
+
+    this.userService.changeUsername(this.accountForm.value.name).subscribe({
+      next: () => {
+        this.dialog.open(ConfirmationDialogComponent, {
+          data: [
+            "Username changed successfully!"
+          ],
+        });
+      },
+      error: () => {
+        this.dialog.open(ConfirmationDialogComponent, {
+          data: [
+            "Username change failed!"
+          ],
+        });
+      }
+    })
 
 
   }

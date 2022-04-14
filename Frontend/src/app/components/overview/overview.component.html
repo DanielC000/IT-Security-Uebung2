@@ -163,8 +163,8 @@
         name
       </th>
       <td mat-cell *matCellDef="let element" class="center-aligned-content">
-        <input matInput [value]="element.targetTemperature">
-        <button (click)="setTemperature(element)">
+        <input matInput #inputElement [value]="element.targetTemperature">
+        <button (click)="setTemperature(element, inputElement.value)">
           Set
         </button>
       </td>

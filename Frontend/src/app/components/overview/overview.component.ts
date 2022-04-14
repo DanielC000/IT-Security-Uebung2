@@ -87,7 +87,11 @@ export class OverviewComponent implements OnInit {
   }
 
 
-  setTemperature(element: Temperature) {
+  setTemperature(element: Temperature, value: string) {
+    if (!parseInt(value)){
+      return;
+    }
+    element.targetTemperature = parseInt(value);
     this.deviceService.setTargetTemperature(element).subscribe({
       next: value => {
         console.log(value);
