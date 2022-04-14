@@ -27,8 +27,8 @@ server.setConfig((app) => {
     app.use(bodyParser.json());
     app.options('https://localhost:4200', cors());
 
-    //app.use("/overview", requireJwtMiddleware);
-    //app.use("/configuration", requireJwtMiddleware);
+    app.use("/overview", requireJwtMiddleware);
+    app.use("/configuration", requireJwtMiddleware);
 });
 
 databaseService.initialize().then(()=>{

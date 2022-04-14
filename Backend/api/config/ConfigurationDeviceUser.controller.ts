@@ -31,6 +31,9 @@ export class ConfigurationDeviceUserController implements interfaces.Controller 
         this.databaseService.changeUsername(session.id, request.params.newName)
         .then(() => {
             this.databaseService.insertNewLog(new Log("Username changed from: "+ session.username + " to " + request.params.newName, Date.now(),"", session.username))
+            .catch(error => {
+                this.loggerService.error(error);
+            })
             response.status(200).send();
         })
         .catch(error => {
@@ -48,6 +51,9 @@ export class ConfigurationDeviceUserController implements interfaces.Controller 
         this.databaseService.removeWindow(request.params.id)
         .then(() => {
             this.databaseService.insertNewLog(new Log("Removed window : "+ request.params.id, Date.now(),"", session.username))
+            .catch(error => {
+                this.loggerService.error(error);
+            })
             response.status(200).send();
         })
         .catch(error => {
@@ -64,6 +70,9 @@ export class ConfigurationDeviceUserController implements interfaces.Controller 
         this.databaseService.removeLight(request.params.id)
         .then(() => {
             this.databaseService.insertNewLog(new Log("Removed light : "+ request.params.id, Date.now(),"", session.username))
+            .catch(error => {
+                this.loggerService.error(error);
+            })
             response.status(200).send();
         })
         .catch(error => {
@@ -79,6 +88,10 @@ export class ConfigurationDeviceUserController implements interfaces.Controller 
         this.databaseService.removeTemperature(request.params.id)
         .then(() => {
             this.databaseService.insertNewLog(new Log("Removed temperature : "+ request.params.id, Date.now(),"", session.username))
+            .catch(error => {
+                this.loggerService.error(error);
+            })
+
             response.status(200).send();
         })
         .catch(error => {
@@ -94,7 +107,10 @@ export class ConfigurationDeviceUserController implements interfaces.Controller 
 
         this.databaseService.insertNewWindow(new WindowModel(request.body.room, request.body.isOpen, request.body.id, request.body.name))
         .then(() => {
-            this.databaseService.insertNewLog(new Log("New window insert : "+ request.body.window.name +"|"+request.body.window.room , Date.now(),"", session.username))
+            this.databaseService.insertNewLog(new Log("New window insert : "+ request.body.name +"|"+request.body.room , Date.now(),"", session.username))
+            .catch(error => {
+                this.loggerService.error(error);
+            })
             response.status(200).send();
         })
         .catch(error => {
@@ -111,7 +127,10 @@ export class ConfigurationDeviceUserController implements interfaces.Controller 
 
         this.databaseService.insertNewLight(new Light(request.body.room, request.body.name, request.body.on, request.body.id))
         .then(() => {
-            this.databaseService.insertNewLog(new Log("New light insert : "+ request.body.light.name +"|"+request.body.light.room, Date.now(),"", session.username))
+            this.databaseService.insertNewLog(new Log("New light insert : "+ request.body.name +"|"+request.body.room, Date.now(),"", session.username))
+            .catch(error => {
+                this.loggerService.error(error);
+            })
             response.status(200).send();
         })
         .catch(error => {
@@ -123,12 +142,14 @@ export class ConfigurationDeviceUserController implements interfaces.Controller 
     public insertTestData(request: Request, response: Response): void {
         this.loggerService.info('Received get all entries request');
         let session: Session = response.locals.session;
-        this.loggerService.info(request.body);
-
 
         this.databaseService.insertNewTemperature(new Temperature(request.body.room, request.body.actualTemperature, request.body.targetTemperature, ""))
         .then(() => {
-            this.databaseService.insertNewLog(new Log("New window insert : "+ session.username + " to " + request.params.newName, Date.now(),"", session.username))
+            this.databaseService.insertNewLog(new Log("New temperature insert : "+ request.body.name +"|"+request.body.room, Date.now(),"", session.username))
+            .catch(error => {
+                this.loggerService.error(error);
+            })
+
             response.status(200).send();
         })
         .catch(error => {
