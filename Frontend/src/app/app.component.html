@@ -21,13 +21,17 @@
       <mat-icon>home</mat-icon>
       <span>Home</span>
     </button>
-    <button mat-button class="menu-button" routerLink="/overview">
-      <mat-icon>Overview</mat-icon>
+    <button mat-button class="menu-button" routerLink="/overview" *ngIf="tokenStorage.getUser()">
+      <mat-icon>view_list</mat-icon>
       <span>Overview</span>
     </button>
-    <button mat-button class="menu-button" routerLink="/configuration">
-      <mat-icon>Configuration</mat-icon>
+    <button mat-button class="menu-button" routerLink="/configuration" *ngIf="tokenStorage.getUser()">
+      <mat-icon>build</mat-icon>
       <span>Configuration</span>
+    </button>
+    <button mat-button class="menu-button" routerLink="/history" *ngIf="tokenStorage.getUser()">
+      <mat-icon>history</mat-icon>
+      <span>History</span>
     </button>
     <mat-divider></mat-divider>
     <button mat-button class="menu-button" routerLink="/login" *ngIf="!tokenStorage.getUser()">

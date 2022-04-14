@@ -6,8 +6,10 @@ import {LoginComponent} from "./components/login/login.component";
 import {AboutComponent} from "./components/about/about.component";
 import {OverviewComponent} from "./components/overview/overview.component";
 import {ConfigurationComponent} from "./components/configuration/configuration.component";
+import { HistoryComponent } from './components/history/history.component';
 
 const routes: Routes = [
+  {path: 'history', component: HistoryComponent},
   {path: 'overview', component: OverviewComponent},
   {path: 'configuration', component: ConfigurationComponent},
   {path: 'about', component: AboutComponent},

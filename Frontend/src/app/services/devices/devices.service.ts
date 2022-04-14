@@ -30,17 +30,17 @@ export class DevicesService {
 
   public setTargetTemperature(element: Temperature) {
     this.logger.log('using PUT to set target Temperature')
-    return this.http.put<any>('http://localhost:8888/overview/temperatures', element);
+    return this.http.put<any>('http://localhost:8888/overview/changeTargetTemperature', element);
   }
 
-  toggleLight(id: string) {
+  toggleLight(element: Light) {
     this.logger.log('using PUT to toggle Light');
-    return this.http.put<any>('http://localhost:8888/overview/togglelight/' + id, "");
+    return this.http.put<any>('http://localhost:8888/overview/togglelight', element);
   }
 
-  toggleWindow(id: string) {
+  toggleWindow(element: WindowModel) {
     this.logger.log('using PUT to toggle Window');
-    return this.http.put<any>('http://localhost:8888/overview/toggleWindow/' + id, "");
+    return this.http.put<any>('http://localhost:8888/overview/toggleWindow', element);
   }
 
   deleteLightDevice(id: string) {
