@@ -142,6 +142,7 @@ export class ConfigurationDeviceUserController implements interfaces.Controller 
     public insertNewTemperature(request: Request, response: Response): void {
         this.loggerService.info('Received get all entries request');
         let session: Session = response.locals.session;
+        this.loggerService.info(request.body);
 
         this.databaseService.insertNewTemperature(new Temperature(request.body.room, request.body.actualTemperature, request.body.targetTemperature, ""))
         .then(() => {

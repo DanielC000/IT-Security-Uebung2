@@ -66,7 +66,7 @@ export class OverviewController implements interfaces.Controller {
             .then(() => {
                 let session: Session = response.locals.session;
                 var today  = new Date();
-                this.databaseService.insertNewLog(new Log("Toggle light from: "+ request.body.name + "|"+request.body.room , "","", session.username))
+                this.databaseService.insertNewLog(new Log("Toggle light in room: "+ request.body.room + " | "+request.body.name , "","", session.username))
                 response.status(200).send();
             })
             .catch(error => {
@@ -77,6 +77,8 @@ export class OverviewController implements interfaces.Controller {
     @httpPut('/changeTargetTemperature')
     public changeTargetTemperature(request: Request, response: Response): void {
         this.loggerService.info('received edit entry request');
+        this.loggerService.info(request.body);
+
         
         this.databaseService.changeTargetTemperature(request.body.id, request.body.targetTemperature)
             .then(() => {
