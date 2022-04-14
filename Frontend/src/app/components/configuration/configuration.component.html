@@ -1,8 +1,3 @@
-<div>
-  <button mat-button color="secondary" (click)="addNewWindowDevice()">Add new Window Device</button>
-  <button mat-button color="secondary" (click)="addNewTemperature()">Add new Temperature Device</button>
-  <button mat-button color="secondary" (click)="addNewLightingDevice()">Add new Lighting Device</button>
-</div>
 <div class="account-wrapper" *ngIf="!isAdmin">
   <div class="card-shadow">
     <mat-card class="card">
@@ -33,6 +28,11 @@
 </div>
 
 <div *ngIf="isAdmin">
+  <div>
+    <button mat-button color="secondary" (click)="addNewWindowDevice()">Add new Window Device</button>
+    <button mat-button color="secondary" (click)="addNewTemperature()">Add new Temperature Device</button>
+    <button mat-button color="secondary" (click)="addNewLightingDevice()">Add new Lighting Device</button>
+  </div>
     <table mat-table [dataSource]="lightingDevices">
       <ng-container matColumnDef="deviceName">
         <th mat-header-cell *matHeaderCellDef class="left-aligned-header">
@@ -68,7 +68,7 @@
     </table>
   </div>
 
-  <div class="table-container">
+  <div class="table-container" *ngIf="isAdmin">
     <table mat-table [dataSource]="temperatureDevices">
       <ng-container matColumnDef="deviceName">
         <th mat-header-cell *matHeaderCellDef class="left-aligned-header">
@@ -103,7 +103,7 @@
     </table>
   </div>
 
-  <div class="table-container">
+  <div class="table-container" *ngIf="isAdmin">
     <table mat-table [dataSource]="windowDevices">
       <ng-container matColumnDef="windowName">
         <th mat-header-cell *matHeaderCellDef class="left-aligned-header">

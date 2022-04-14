@@ -81,7 +81,8 @@ export class OverviewComponent implements OnInit {
       this.getLightingDevices();
     },
       error: err => {
-      console.log(err);
+        this.getLightingDevices();
+        console.log(err);
       }
     })
   }
