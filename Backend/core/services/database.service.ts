@@ -16,6 +16,7 @@ export class DatabaseService {
     ) {
     }
 
+
     public async initialize(): Promise<boolean> {
         const connection = await this.connect();
         r.dbList()
@@ -261,11 +262,12 @@ export class DatabaseService {
 
     insertNewLog(log: Log) {
         return new Promise((resolve, reject) => {
+            var today  = new Date();
             this.connect().then((connection: Connection) => {
                 r.db(databaseConfiguration.databaseName)
                 r.table("logTable")
                     .insert({
-                        date: log.date,
+                        date: today.toLocaleDateString("en-GB", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
                         username: log.username,
                         message: log.message
                     })

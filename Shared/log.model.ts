@@ -1,12 +1,12 @@
 export class Log {
 
     id: string;
-    date: number;
+    date: string;
     username: string;
     message : string;
 
 
-    constructor(message: string, date: number, id: string,username: string) {
+    constructor(message: string, date: string, id: string,username: string) {
         this.date = date;
         this.message = message;
         this.id = id;

@@ -65,7 +65,8 @@ export class OverviewController implements interfaces.Controller {
         this.databaseService.toggleLight(request.body.id)
             .then(() => {
                 let session: Session = response.locals.session;
-                this.databaseService.insertNewLog(new Log("Toggle light from: "+ request.body.name + "|"+request.body.room , Date.now(),"", session.username))
+                var today  = new Date();
+                this.databaseService.insertNewLog(new Log("Toggle light from: "+ request.body.name + "|"+request.body.room , "","", session.username))
                 response.status(200).send();
             })
             .catch(error => {
@@ -80,7 +81,7 @@ export class OverviewController implements interfaces.Controller {
         this.databaseService.changeTargetTemperature(request.body.id, request.body.targetTemperature)
             .then(() => {
                 let session: Session = response.locals.session;
-                this.databaseService.insertNewLog(new Log("Changed target temperature from: "+request.body.name+ " to " + request.params.targetTemperature, Date.now(),"", session.username))
+                this.databaseService.insertNewLog(new Log("Changed target temperature from: "+request.body.name+ " to " + request.params.targetTemperature, "","", session.username))
                 response.status(200).send();
             })
             .catch(error => {
@@ -94,7 +95,7 @@ export class OverviewController implements interfaces.Controller {
         this.databaseService.toggleWindow(request.body.id)
             .then(() => {
                 let session: Session = response.locals.session;
-                this.databaseService.insertNewLog(new Log("Toggle window from: "+ request.body.name, Date.now(),"", session.username))
+                this.databaseService.insertNewLog(new Log("Toggle window from: "+ request.body.name, "","", session.username))
                 response.status(200).send();
             })
             .catch(error => {
