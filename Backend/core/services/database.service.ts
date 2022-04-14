@@ -267,7 +267,7 @@ export class DatabaseService {
                 r.db(databaseConfiguration.databaseName)
                 r.table("logTable")
                     .insert({
-                        date: today.toLocaleDateString("en-GB", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
+                        date: today.toLocaleDateString("en-GB", { year: 'numeric', month: 'numeric', day: 'numeric' ,hour: 'numeric',minute:'numeric'}),
                         username: log.username,
                         message: log.message
                     })
