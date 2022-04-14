@@ -139,7 +139,7 @@ export class ConfigurationDeviceUserController implements interfaces.Controller 
     }
 
     @httpPost('/addtemperature')
-    public insertTestData(request: Request, response: Response): void {
+    public insertNewTemperature(request: Request, response: Response): void {
         this.loggerService.info('Received get all entries request');
         let session: Session = response.locals.session;
 
