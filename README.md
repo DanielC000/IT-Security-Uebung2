@@ -1,7 +1,7 @@
 # IT-Security-Uebung2
 
 ## Testdaten
-Post method auf http://localhost:4200/user/adddata durchführen und es werden die Testdaten eingefügt.
+Zum Befüllen der DB mit Testdaten Post Methode auf http://localhost:4200/user/adddata durchführen oder Rethink-DB Instanz aus der Solution verwenden.
 
 Admin:
   Superuser
