@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
         error: (error) => {
           this.loggerService.log(error);
           this.dialog.open(ConfirmationDialogComponent, {
-            data: error.error.message,
+            data: error,
           });
         },
       });

@@ -247,11 +247,11 @@ export class ConfigurationComponent implements OnInit {
   }
 
   changeMade() {
-    return undefined;
-  }
+    if (this.accountForm.invalid) {
+      return true;
+    }
 
-  onBack() {
-
+    return !(this.accountForm.value.username != this.tokenStorage.getUser().username);
   }
 
   onChangePassword() {
