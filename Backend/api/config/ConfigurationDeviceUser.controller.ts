@@ -48,15 +48,23 @@ export class ConfigurationDeviceUserController implements interfaces.Controller 
         this.loggerService.info('Received get all entries request');
         let session: Session = response.locals.session;
 
-        this.databaseService.removeWindow(request.params.id)
-        .then(() => {
-            this.databaseService.insertNewLog(new Log("Removed window : "+ request.params.id, "","", session.username))
-            .catch(error => {
-                this.loggerService.error(error);
-            })
-            response.status(200).send();
-        })
-        .catch(error => {
+        this.isAdmin(session).then((result: boolean) => {
+            if (result) {
+                this.databaseService.removeWindow(request.params.id)
+                .then(() => {
+                    this.databaseService.insertNewLog(new Log("Removed window : "+ request.params.id, "","", session.username))
+                    .catch(error => {
+                        this.loggerService.error(error);
+                    })
+                    response.status(200).send();
+                })
+                .catch(error => {
+                    response.status(500).send(error);
+                })
+            } else {
+                response.status(500).send("User is not an Admin");
+            }
+        }).catch(error => {
             response.status(500).send(error);
         })
 
@@ -67,15 +75,23 @@ export class ConfigurationDeviceUserController implements interfaces.Controller 
         this.loggerService.info('Received get all entries request');
         let session: Session = response.locals.session;
 
-        this.databaseService.removeLight(request.params.id)
-        .then(() => {
-            this.databaseService.insertNewLog(new Log("Removed light : "+ request.params.id, "","", session.username))
-            .catch(error => {
-                this.loggerService.error(error);
-            })
-            response.status(200).send();
-        })
-        .catch(error => {
+        this.isAdmin(session).then((result: boolean) => {
+            if (result) {
+                this.databaseService.removeLight(request.params.id)
+                .then(() => {
+                    this.databaseService.insertNewLog(new Log("Removed light : "+ request.params.id, "","", session.username))
+                    .catch(error => {
+                        this.loggerService.error(error);
+                    })
+                    response.status(200).send();
+                })
+                .catch(error => {
+                    response.status(500).send(error);
+                })
+            } else {
+                response.status(500).send("User is not an Admin");
+            }
+        }).catch(error => {
             response.status(500).send(error);
         })
     }
@@ -85,16 +101,24 @@ export class ConfigurationDeviceUserController implements interfaces.Controller 
         this.loggerService.info('Received get all entries request');
         let session: Session = response.locals.session;
 
-        this.databaseService.removeTemperature(request.params.id)
-        .then(() => {
-            this.databaseService.insertNewLog(new Log("Removed temperature : "+ request.params.id, "","", session.username))
-            .catch(error => {
-                this.loggerService.error(error);
-            })
+        this.isAdmin(session).then((result: boolean) => {
+            if (result) {
+                this.databaseService.removeTemperature(request.params.id)
+                .then(() => {
+                    this.databaseService.insertNewLog(new Log("Removed temperature : "+ request.params.id, "","", session.username))
+                    .catch(error => {
+                        this.loggerService.error(error);
+                    })
 
-            response.status(200).send();
-        })
-        .catch(error => {
+                    response.status(200).send();
+                })
+                .catch(error => {
+                    response.status(500).send(error);
+                })
+            } else {
+                response.status(500).send("User is not an Admin");
+            }
+        }).catch(error => {
             response.status(500).send(error);
         })
     }
@@ -105,19 +129,27 @@ export class ConfigurationDeviceUserController implements interfaces.Controller 
         this.loggerService.info('Received get all entries request');
         let session: Session = response.locals.session;
 
-        this.databaseService.insertNewWindow(new WindowModel(request.body.room, request.body.isOpen, request.body.id, request.body.name))
-        .then(() => {
-            this.databaseService.insertNewLog(new Log("New window insert : "+ request.body.name +"|"+request.body.room , "","", session.username))
-            .catch(error => {
-                this.loggerService.error(error);
-            })
-            response.status(200).send();
-        })
-        .catch(error => {
+        this.isAdmin(session).then((result: boolean) => {
+            if (result) {
+                this.databaseService.insertNewWindow(new WindowModel(request.body.room, request.body.isOpen, request.body.id, request.body.name))
+                .then(() => {
+                    this.databaseService.insertNewLog(new Log("New window insert : "+ request.body.name +"|"+request.body.room , "","", session.username))
+                    .catch(error => {
+                        this.loggerService.error(error);
+                    })
+                    response.status(200).send();
+                })
+                .catch(error => {
+                    response.status(500).send(error);
+                })
+
+                response.status(200).send();
+            } else {
+                response.status(500).send("User is not an Admin");
+            }
+        }).catch(error => {
             response.status(500).send(error);
         })
-
-        response.status(200).send();
     }
 
     @httpPost('/addlight')
@@ -125,15 +157,23 @@ export class ConfigurationDeviceUserController implements interfaces.Controller 
         this.loggerService.info('Received get all entries request');
         let session: Session = response.locals.session;
 
-        this.databaseService.insertNewLight(new Light(request.body.room, request.body.name, request.body.on, request.body.id))
-        .then(() => {
-            this.databaseService.insertNewLog(new Log("New light insert : "+ request.body.name +"|"+request.body.room, "","", session.username))
-            .catch(error => {
-                this.loggerService.error(error);
-            })
-            response.status(200).send();
-        })
-        .catch(error => {
+        this.isAdmin(session).then((result: boolean) => {
+            if (result) {
+                this.databaseService.insertNewLight(new Light(request.body.room, request.body.name, request.body.on, request.body.id))
+                .then(() => {
+                    this.databaseService.insertNewLog(new Log("New light insert : "+ request.body.name +"|"+request.body.room, "","", session.username))
+                    .catch(error => {
+                        this.loggerService.error(error);
+                    })
+                    response.status(200).send();
+                })
+                .catch(error => {
+                    response.status(500).send(error);
+                })
+            } else {
+                response.status(500).send("User is not an Admin");
+            }
+        }).catch(error => {
             response.status(500).send(error);
         })
     }
@@ -144,16 +184,24 @@ export class ConfigurationDeviceUserController implements interfaces.Controller 
         let session: Session = response.locals.session;
         this.loggerService.info(request.body);
 
-        this.databaseService.insertNewTemperature(new Temperature(request.body.room, request.body.actualTemperature, request.body.targetTemperature, ""))
-        .then(() => {
-            this.databaseService.insertNewLog(new Log("New temperature insert : "+ request.body.name +"|"+request.body.room, "","", session.username))
-            .catch(error => {
-                this.loggerService.error(error);
-            })
+        this.isAdmin(session).then((result: boolean) => {
+            if (result) {
+                this.databaseService.insertNewTemperature(new Temperature(request.body.room, request.body.actualTemperature, request.body.targetTemperature, ""))
+                .then(() => {
+                    this.databaseService.insertNewLog(new Log("New temperature insert : "+ request.body.name +"|"+request.body.room, "","", session.username))
+                    .catch(error => {
+                        this.loggerService.error(error);
+                    })
 
-            response.status(200).send();
-        })
-        .catch(error => {
+                    response.status(200).send();
+                })
+                .catch(error => {
+                    response.status(500).send(error);
+                })
+            } else {
+                response.status(500).send("User is not an Admin");
+            }
+        }).catch(error => {
             response.status(500).send(error);
         })
     }
@@ -198,5 +246,18 @@ export class ConfigurationDeviceUserController implements interfaces.Controller 
             })
 
         response.status(200).send(config);
+    }
+
+    private async isAdmin(session: Session): Promise<boolean> {
+        const users = await this.databaseService.getAllUsers()
+        let user = users.find(x => x.id == session.id);
+
+        if (user == undefined) {
+            return Promise.reject("Invalid Session");
+        }
+        if (user.role.includes("Admin")) {
+            return true
+        }
+        return false
     }
 }
